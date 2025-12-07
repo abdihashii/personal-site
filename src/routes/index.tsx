@@ -29,24 +29,44 @@ export const Route = createFileRoute('/')({
   component: App,
 });
 
-const skills = [
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'Python', icon: SiPython, color: '#3776AB' },
-  { name: 'HTML', icon: SiHtml5, color: '#E34F26' },
-  { name: 'CSS', icon: SiCss3, color: '#1572B6' },
-  { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF' },
-  { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
-  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-  { name: 'Redis', icon: SiRedis, color: '#DC382D' },
-  { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
-  { name: 'Docker', icon: SiDocker, color: '#2496ED' },
-  { name: 'Git', icon: SiGit, color: '#F05032' },
-  { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
-  { name: 'Vercel', icon: SiVercel, color: '#FFFFFF' },
-  { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020' },
+const skillCategories = [
+  {
+    name: 'Languages',
+    skills: [
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+      { name: 'Python', icon: SiPython, color: '#3776AB' },
+      { name: 'HTML', icon: SiHtml5, color: '#E34F26' },
+      { name: 'CSS', icon: SiCss3, color: '#1572B6' },
+    ],
+  },
+  {
+    name: 'Frontend',
+    skills: [
+      { name: 'React', icon: SiReact, color: '#61DAFB' },
+      { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF' },
+      { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
+    ],
+  },
+  {
+    name: 'Backend',
+    skills: [
+      { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+      { name: 'Redis', icon: SiRedis, color: '#DC382D' },
+      { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+    ],
+  },
+  {
+    name: 'DevOps & Cloud',
+    skills: [
+      { name: 'Docker', icon: SiDocker, color: '#2496ED' },
+      { name: 'Git', icon: SiGit, color: '#F05032' },
+      { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
+      { name: 'Vercel', icon: SiVercel, color: '#FFFFFF' },
+      { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020' },
+    ],
+  },
 ];
 
 const experiences = [
@@ -164,16 +184,23 @@ function App() {
       <section id="skills" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <Badge
-                key={skill.name}
-                variant="secondary"
-                className="px-4 py-2 font-mono text-base gap-2.5 transition-all hover:scale-105"
-              >
-                <skill.icon className="size-5" style={{ color: skill.color }} />
-                {skill.name}
-              </Badge>
+          <div className="mt-8 space-y-6">
+            {skillCategories.map((category) => (
+              <div key={category.name}>
+                <h3 className="mb-3 text-sm font-medium text-muted-foreground">{category.name}</h3>
+                <div className="flex flex-wrap gap-3">
+                  {category.skills.map((skill) => (
+                    <Badge
+                      key={skill.name}
+                      variant="secondary"
+                      className="px-4 py-2 font-mono text-base gap-2.5 transition-all hover:scale-105"
+                    >
+                      <skill.icon className="size-5" style={{ color: skill.color }} />
+                      {skill.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
