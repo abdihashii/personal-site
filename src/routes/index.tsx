@@ -62,13 +62,7 @@ const projects = [
 ];
 
 function App() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark')
-        || window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     if (isDark) {
