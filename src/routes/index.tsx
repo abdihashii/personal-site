@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { ChevronDownIcon, GithubIcon, MailIcon, MoonIcon, SunIcon, TwitterIcon } from 'lucide-react';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ChevronDownIcon, FileTextIcon, GithubIcon, LinkedinIcon, MailIcon, MoonIcon, SunIcon, TwitterIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
   SiAmazonwebservices,
@@ -74,19 +74,19 @@ const experiences = [
     company: 'Helius',
     role: 'Software Engineer',
     period: 'May 2024 - Present',
-    description: '',
+    description: 'Building developer tools for the Solana ecosystem.',
   },
   {
     company: 'Google',
     role: 'Software Engineer',
     period: 'July 2021 - March 2024',
-    description: '',
+    description: 'Worked on large-scale distributed systems.',
   },
   {
     company: 'Intuit',
     role: 'Software Engineer',
     period: 'August 2019 - July 2021',
-    description: '',
+    description: 'Built financial software products.',
   },
 ];
 
@@ -167,7 +167,23 @@ function App() {
               <MailIcon className="size-5" />
             </a>
           </Button>
+          <Button variant="ghost" size="icon" asChild>
+            <a
+              href="https://linkedin.com/in/abdirahman-haji"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <LinkedinIcon className="size-5" />
+            </a>
+          </Button>
         </div>
+        <Button variant="outline" className="mt-6" asChild>
+          <Link to="/resume">
+            <FileTextIcon className="mr-2 size-4" />
+            Resume
+          </Link>
+        </Button>
 
         {/* Scroll Indicator */}
         <button
@@ -292,6 +308,16 @@ function App() {
               <a href="mailto:abdirahman.haji.13@gmail.com">
                 <MailIcon className="mr-2 size-4" />
                 Email
+              </a>
+            </Button>
+            <Button variant="outline" asChild>
+              <a
+                href="https://linkedin.com/in/abdirahman-haji"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkedinIcon className="mr-2 size-4" />
+                LinkedIn
               </a>
             </Button>
           </div>
