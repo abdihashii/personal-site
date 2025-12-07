@@ -100,7 +100,8 @@ const EXPERIENCES = [
     company: 'Google',
     role: 'Software Engineer',
     period: 'July 2021 - March 2024',
-    description: 'Worked on large-scale distributed systems.',
+    description:
+      'Search Infrastructure team. Helped pioneer the transition from monolithic to micro-frontend architecture for Search features. Contributed to an AI-driven UI Agent to streamline feature development.',
     logo: '/logos/google.svg',
   },
   {
