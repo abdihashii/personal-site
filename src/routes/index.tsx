@@ -67,9 +67,9 @@ const SKILL_CATEGORIES = [
   {
     name: 'Frontend',
     skills: [
-      { name: 'React', icon: SiReact, color: '#61DAFB' },
-      { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF' },
-      { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
+      { name: 'React', icon: SiReact, color: '#61DAFB', url: 'https://react.dev/' },
+      { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF', url: 'https://nextjs.org/' },
+      { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', url: 'https://tailwindcss.com/' },
     ],
   },
   {
