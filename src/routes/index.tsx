@@ -53,11 +53,11 @@ const projects = [
     description: 'Developer tools powered by AI.',
     url: 'https://ai-dev-toolkit.com',
   },
-  {
-    title: 'Coming Soon',
-    description: 'Another project in the works.',
-    url: '#',
-  },
+  // {
+  //   title: 'Coming Soon',
+  //   description: 'Another project in the works.',
+  //   url: '#',
+  // },
 ];
 
 function App() {
