@@ -1,6 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ChevronDownIcon, GithubIcon, MailIcon, MoonIcon, SunIcon, TwitterIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import {
+  SiAmazonwebservices,
+  SiCloudflare,
+  SiCss3,
+  SiHtml5,
+  SiJavascript,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+} from 'react-icons/si';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,14 +21,14 @@ export const Route = createFileRoute('/')({
 });
 
 const skills = [
-  'TypeScript',
-  'JavaScript',
-  'HTML',
-  'CSS',
-  'React',
-  'Tailwind',
-  'AWS',
-  'CloudFlare',
+  { name: 'TypeScript', icon: SiTypescript },
+  { name: 'JavaScript', icon: SiJavascript },
+  { name: 'HTML', icon: SiHtml5 },
+  { name: 'CSS', icon: SiCss3 },
+  { name: 'React', icon: SiReact },
+  { name: 'Tailwind', icon: SiTailwindcss },
+  { name: 'AWS', icon: SiAmazonwebservices },
+  { name: 'CloudFlare', icon: SiCloudflare },
 ];
 
 const experiences = [
@@ -138,8 +148,9 @@ function App() {
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
           <div className="mt-8 flex flex-wrap gap-2">
             {skills.map((skill) => (
-              <Badge key={skill} variant="secondary" className="font-mono text-sm">
-                {skill}
+              <Badge key={skill.name} variant="secondary" className="font-mono text-sm gap-2">
+                <skill.icon className="size-4" />
+                {skill.name}
               </Badge>
             ))}
           </div>
