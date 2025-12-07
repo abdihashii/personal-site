@@ -5,11 +5,20 @@ import {
   SiAmazonwebservices,
   SiCloudflare,
   SiCss3,
+  SiDocker,
+  SiGit,
+  SiGraphql,
   SiHtml5,
   SiJavascript,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPython,
   SiReact,
+  SiRedis,
   SiTailwindcss,
   SiTypescript,
+  SiVercel,
 } from 'react-icons/si';
 
 import { Badge } from '@/components/ui/badge';
@@ -23,11 +32,20 @@ export const Route = createFileRoute('/')({
 const skills = [
   { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
   { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'Python', icon: SiPython, color: '#3776AB' },
   { name: 'HTML', icon: SiHtml5, color: '#E34F26' },
   { name: 'CSS', icon: SiCss3, color: '#1572B6' },
   { name: 'React', icon: SiReact, color: '#61DAFB' },
+  { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF' },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
   { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Redis', icon: SiRedis, color: '#DC382D' },
+  { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+  { name: 'Docker', icon: SiDocker, color: '#2496ED' },
+  { name: 'Git', icon: SiGit, color: '#F05032' },
   { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
+  { name: 'Vercel', icon: SiVercel, color: '#FFFFFF' },
   { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020' },
 ];
 
