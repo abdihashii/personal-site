@@ -174,7 +174,7 @@ function App() {
             key={section.id}
             type="button"
             onClick={() => scrollToSection(section.id)}
-            className={`text-right font-mono text-sm transition-all duration-300 ${
+            className={`cursor-pointer text-right font-mono text-sm transition-all duration-300 ${
               activeSection === section.id
                 ? 'text-foreground'
                 : 'text-muted-foreground/50 hover:text-muted-foreground'
