@@ -401,7 +401,7 @@ function HomePage() {
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
               <Button
                 key={name}
-                variant={href.startsWith('mailto:') ? 'default' : 'outline'}
+                variant="outline"
                 className="w-full sm:w-auto"
                 asChild
               >
