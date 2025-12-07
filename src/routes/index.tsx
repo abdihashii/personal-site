@@ -21,14 +21,14 @@ export const Route = createFileRoute('/')({
 });
 
 const skills = [
-  { name: 'TypeScript', icon: SiTypescript },
-  { name: 'JavaScript', icon: SiJavascript },
-  { name: 'HTML', icon: SiHtml5 },
-  { name: 'CSS', icon: SiCss3 },
-  { name: 'React', icon: SiReact },
-  { name: 'Tailwind', icon: SiTailwindcss },
-  { name: 'AWS', icon: SiAmazonwebservices },
-  { name: 'CloudFlare', icon: SiCloudflare },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'HTML', icon: SiHtml5, color: '#E34F26' },
+  { name: 'CSS', icon: SiCss3, color: '#1572B6' },
+  { name: 'React', icon: SiReact, color: '#61DAFB' },
+  { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
+  { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
+  { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020' },
 ];
 
 const experiences = [
@@ -146,10 +146,14 @@ function App() {
       <section id="skills" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
-          <div className="mt-8 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap gap-3">
             {skills.map((skill) => (
-              <Badge key={skill.name} variant="secondary" className="font-mono text-sm gap-2">
-                <skill.icon className="size-4" />
+              <Badge
+                key={skill.name}
+                variant="secondary"
+                className="px-4 py-2 font-mono text-base gap-2.5 transition-all hover:scale-105"
+              >
+                <skill.icon className="size-5" style={{ color: skill.color }} />
                 {skill.name}
               </Badge>
             ))}
