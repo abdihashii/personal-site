@@ -30,6 +30,7 @@ import {
   SiVercel,
 } from 'react-icons/si';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -209,6 +210,10 @@ function HomePage() {
         id="hero"
         className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
       >
+        <Avatar className="mb-6 size-32 border-2 border-primary/20">
+          <AvatarImage src="/avatar.jpg" alt="Abdirahman Haji" />
+          <AvatarFallback className="bg-muted text-3xl font-mono">AH</AvatarFallback>
+        </Avatar>
         <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">Abdirahman Haji</h1>
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">Software Engineer</p>
 
