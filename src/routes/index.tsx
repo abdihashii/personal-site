@@ -57,11 +57,11 @@ const SKILL_CATEGORIES = [
   {
     name: 'Languages',
     skills: [
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'Python', icon: SiPython, color: '#3776AB' },
-      { name: 'HTML', icon: SiHtml5, color: '#E34F26' },
-      { name: 'CSS', icon: SiCss3, color: '#1572B6' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', url: 'https://www.typescriptlang.org/' },
+      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+      { name: 'Python', icon: SiPython, color: '#3776AB', url: 'https://www.python.org/' },
+      { name: 'HTML', icon: SiHtml5, color: '#E34F26', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
+      { name: 'CSS', icon: SiCss3, color: '#1572B6', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
     ],
   },
   {
@@ -295,16 +295,32 @@ function HomePage() {
               <div key={category.name}>
                 <h3 className="mb-3 text-sm font-medium text-muted-foreground">{category.name}</h3>
                 <div className="flex flex-wrap gap-3">
-                  {category.skills.map((skill) => (
-                    <Badge
-                      key={skill.name}
-                      variant="secondary"
-                      className="gap-2 px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 md:gap-2.5 md:px-4 md:py-2 md:text-base"
-                    >
-                      <skill.icon className="size-4 md:size-5" style={{ color: skill.color }} />
-                      {skill.name}
-                    </Badge>
-                  ))}
+                  {category.skills.map((skill) => {
+                    const badge = (
+                      <Badge
+                        variant="secondary"
+                        className="gap-2 px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 md:gap-2.5 md:px-4 md:py-2 md:text-base"
+                      >
+                        <skill.icon className="size-4 md:size-5" style={{ color: skill.color }} />
+                        {skill.name}
+                      </Badge>
+                    );
+
+                    if ('url' in skill && skill.url) {
+                      return (
+                        <a
+                          key={skill.name}
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {badge}
+                        </a>
+                      );
+                    }
+
+                    return <span key={skill.name}>{badge}</span>;
+                  })}
                 </div>
               </div>
             ))}
