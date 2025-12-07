@@ -30,3 +30,42 @@ Add staggered entrance animations to section content as users scroll into view.
 
 ### Priority
 Low - Nice to have, not essential for MVP
+
+---
+
+## Blog / Writing Section
+
+Add a blog or writing section to showcase technical articles, tutorials, and thoughts.
+
+### Concept
+- Dedicated `/blog` route with list of posts
+- Individual post pages at `/blog/:slug`
+- Markdown-based content (MDX for interactive components)
+- Categories/tags for filtering
+- Reading time estimates
+
+### Implementation Options
+
+1. **MDX with file-based routing**
+   - Store posts as `.mdx` files in `src/content/blog/`
+   - Use frontmatter for metadata (title, date, tags, description)
+   - Build-time compilation for performance
+
+2. **Headless CMS (Contentlayer, Sanity, etc.)**
+   - More flexibility for content management
+   - Preview drafts before publishing
+   - Overkill for a personal blog
+
+3. **Simple Markdown + custom parser**
+   - Lightweight, full control
+   - Manual setup for syntax highlighting, etc.
+
+### Features to Consider
+- Syntax highlighting for code blocks (Shiki or Prism)
+- Table of contents for longer posts
+- Related posts suggestions
+- RSS feed for subscribers
+- Search functionality
+
+### Priority
+Medium - Great for showcasing expertise, but requires content to be valuable
