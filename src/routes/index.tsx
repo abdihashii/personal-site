@@ -108,7 +108,8 @@ const EXPERIENCES = [
     company: 'Intuit',
     role: 'Software Engineer',
     period: 'August 2019 - July 2021',
-    description: 'Built financial software products.',
+    description:
+      'Re-engineered platform UI to React, improving user experience. Collaborated in full-stack development to equip thousands of engineers and marketers with experimentation tools.',
     logo: '/logos/intuit.png',
   },
 ];
