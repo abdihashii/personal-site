@@ -86,11 +86,11 @@ const SKILL_CATEGORIES = [
   {
     name: 'DevOps & Cloud',
     skills: [
-      { name: 'Docker', icon: SiDocker, color: '#2496ED' },
-      { name: 'Git', icon: SiGit, color: '#F05032' },
-      { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
-      { name: 'Vercel', icon: SiVercel, color: '#FFFFFF' },
-      { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020' },
+      { name: 'Docker', icon: SiDocker, color: '#2496ED', url: 'https://www.docker.com/' },
+      { name: 'Git', icon: SiGit, color: '#F05032', url: 'https://git-scm.com/' },
+      { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900', url: 'https://aws.amazon.com/' },
+      { name: 'Vercel', icon: SiVercel, color: '#FFFFFF', url: 'https://vercel.com/' },
+      { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020', url: 'https://www.cloudflare.com/' },
     ],
   },
 ];
