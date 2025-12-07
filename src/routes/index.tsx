@@ -385,7 +385,7 @@ function HomePage() {
       >
         <div className="text-center">
           <h2 className="font-mono text-2xl font-semibold">Get in Touch</h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-4 text-balance text-muted-foreground">
             Feel free to reach out for collabs or just to say hi.
           </p>
 
