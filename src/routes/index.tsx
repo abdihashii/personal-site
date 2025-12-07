@@ -317,24 +317,22 @@ function HomePage() {
           <h2 className="font-mono text-2xl font-semibold">Projects</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PROJECTS.map((project) => (
-              <Card
+              <a
                 key={project.title}
-                className="border-border/50 bg-card/50 transition-colors hover:border-primary/50"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
               >
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block h-full"
-                >
+                <Card className="h-full border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                   <CardHeader>
                     <CardTitle className="font-mono text-lg">{project.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">{project.description}</p>
                   </CardContent>
-                </a>
-              </Card>
+                </Card>
+              </a>
             ))}
           </div>
         </div>
