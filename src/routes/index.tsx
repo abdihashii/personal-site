@@ -162,7 +162,7 @@ function HomePage() {
   return (
     <main className="h-screen snap-y snap-mandatory overflow-y-auto bg-background text-foreground">
       {/* Theme Toggle */}
-      <div className="fixed right-6 top-6 z-50">
+      <div className="fixed right-4 top-4 z-50 md:right-6 md:top-6">
         <Button
           variant="ghost"
           size="icon"
@@ -174,7 +174,7 @@ function HomePage() {
       </div>
 
       {/* Section Navigation */}
-      <nav className="fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 animate-in fade-in fill-mode-backwards delay-1000 duration-700 md:flex">
+      <nav className="fixed right-4 top-1/2 z-50 hidden -translate-y-1/2 animate-in fade-in fill-mode-backwards delay-1000 duration-700 md:right-6 md:flex">
         <div className="absolute bottom-[5px] right-[4.5px] top-[5px] w-px bg-border" />
         <div className="flex flex-col gap-4">
           {SECTIONS.map(({ id, name }) => (
@@ -210,11 +210,13 @@ function HomePage() {
         id="hero"
         className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
       >
-        <Avatar className="mb-6 size-32 border-2 border-primary/20">
+        <Avatar className="mb-6 size-24 border-2 border-primary/20 md:size-32">
           <AvatarImage src="/avatar.jpg" alt="Abdirahman Haji" />
-          <AvatarFallback className="bg-muted text-3xl font-mono">AH</AvatarFallback>
+          <AvatarFallback className="bg-muted font-mono text-2xl md:text-3xl">AH</AvatarFallback>
         </Avatar>
-        <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">Abdirahman Haji</h1>
+        <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
+          Abdirahman Haji
+        </h1>
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">Software Engineer</p>
 
         <div className="mt-8 flex gap-4">
@@ -252,7 +254,7 @@ function HomePage() {
       {/* Skills */}
       <section
         id="skills"
-        className="flex h-screen snap-start flex-col items-center justify-center px-6"
+        className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
       >
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
@@ -265,9 +267,9 @@ function HomePage() {
                     <Badge
                       key={skill.name}
                       variant="secondary"
-                      className="gap-2.5 px-4 py-2 font-mono text-base transition-all hover:scale-105"
+                      className="gap-2 px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 md:gap-2.5 md:px-4 md:py-2 md:text-base"
                     >
-                      <skill.icon className="size-5" style={{ color: skill.color }} />
+                      <skill.icon className="size-4 md:size-5" style={{ color: skill.color }} />
                       {skill.name}
                     </Badge>
                   ))}
@@ -281,7 +283,7 @@ function HomePage() {
       {/* Experience */}
       <section
         id="experience"
-        className="flex h-screen snap-start flex-col items-center justify-center px-6"
+        className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
       >
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Experience</h2>
@@ -309,7 +311,7 @@ function HomePage() {
       {/* Projects */}
       <section
         id="projects"
-        className="flex h-screen snap-start flex-col items-center justify-center px-6"
+        className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
       >
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Projects</h2>
@@ -341,17 +343,22 @@ function HomePage() {
       {/* Contact */}
       <section
         id="contact"
-        className="flex h-screen snap-start flex-col items-center justify-center px-6"
+        className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
       >
         <div className="text-center">
           <h2 className="font-mono text-2xl font-semibold">Get in Touch</h2>
           <p className="mt-4 text-muted-foreground">
-            Feel free to reach out for collaborations or just to say hi.
+            Feel free to reach out for collabs or just to say hi.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-              <Button key={name} variant={href.startsWith('mailto:') ? 'default' : 'outline'} asChild>
+              <Button
+                key={name}
+                variant={href.startsWith('mailto:') ? 'default' : 'outline'}
+                className="w-full sm:w-auto"
+                asChild
+              >
                 <a
                   href={href}
                   target={href.startsWith('mailto:') ? undefined : '_blank'}
