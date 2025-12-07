@@ -364,7 +364,7 @@ function HomePage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">{project.description}</p>
+                    <p className="h-[2lh] line-clamp-2 text-sm text-muted-foreground">{project.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((tech) => (
                         <Badge key={tech} variant="secondary" className="text-xs">
