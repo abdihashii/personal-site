@@ -108,8 +108,17 @@ const projects = [
   // },
 ];
 
+const sections = [
+  { id: 'hero', name: 'Home' },
+  { id: 'skills', name: 'Skills' },
+  { id: 'experience', name: 'Experience' },
+  { id: 'projects', name: 'Projects' },
+  { id: 'contact', name: 'Contact' },
+];
+
 function App() {
   const [isDark, setIsDark] = useState(true);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     if (isDark) {
@@ -118,6 +127,31 @@ function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
+
+  // Track active section with IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <main className="h-screen snap-y snap-mandatory overflow-y-auto bg-background text-foreground">
@@ -133,8 +167,26 @@ function App() {
         </Button>
       </div>
 
+      {/* Section Navigation */}
+      <nav className="fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 md:flex">
+        {sections.map((section) => (
+          <button
+            key={section.id}
+            type="button"
+            onClick={() => scrollToSection(section.id)}
+            className={`text-right font-mono text-sm transition-all duration-300 ${
+              activeSection === section.id
+                ? 'text-foreground'
+                : 'text-muted-foreground/50 hover:text-muted-foreground'
+            }`}
+          >
+            {activeSection === section.id ? section.name : '—'}
+          </button>
+        ))}
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section id="hero" className="relative flex h-screen snap-start flex-col items-center justify-center px-6">
         <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">
           Abdirahman Haji
         </h1>
@@ -223,7 +275,7 @@ function App() {
       </section>
 
       {/* Experience Section */}
-      <section className="flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section id="experience" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Experience</h2>
           <div className="mt-8 space-y-6">
@@ -248,7 +300,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section className="flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section id="projects" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Projects</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -277,7 +329,7 @@ function App() {
       </section>
 
       {/* Contact / Footer */}
-      <section className="flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section id="contact" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="text-center">
           <h2 className="font-mono text-2xl font-semibold">Get in Touch</h2>
           <p className="mt-4 text-muted-foreground">
