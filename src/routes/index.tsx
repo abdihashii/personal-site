@@ -319,7 +319,7 @@ function HomePage() {
                 <CardHeader className="pb-2">
                   <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
                     <CardTitle className="font-mono text-lg">{exp.role}</CardTitle>
-                    <span className="text-sm text-muted-foreground">{exp.period}</span>
+                    <span className="font-mono text-sm text-muted-foreground">{exp.period}</span>
                   </div>
                   <CardDescription>
                     <img
