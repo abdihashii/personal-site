@@ -319,7 +319,11 @@ function HomePage() {
                     <span className="text-sm text-muted-foreground">{exp.period}</span>
                   </div>
                   <CardDescription>
-                    <img src={exp.logo} alt={exp.company} className="h-6 w-auto" />
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      className="h-5 max-w-28 object-contain object-left"
+                    />
                   </CardDescription>
                 </CardHeader>
                 {exp.description && (
