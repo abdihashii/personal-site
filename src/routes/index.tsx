@@ -7,9 +7,12 @@ import {
   GithubIcon,
   LinkedinIcon,
   MailIcon,
+  MessageSquareIcon,
   MoonIcon,
+  SendIcon,
   SunIcon,
   TwitterIcon,
+  XIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
@@ -36,6 +39,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -141,6 +146,7 @@ const SECTIONS = [
 function HomePage() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState<string>('hero');
+  const [showContactForm, setShowContactForm] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
@@ -347,7 +353,7 @@ function HomePage() {
       >
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Projects</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             {PROJECTS.map((project) => (
               <a
                 key={project.title}
@@ -409,6 +415,70 @@ function HomePage() {
                 </a>
               </Button>
             ))}
+          </div>
+
+          {/* Hidden Contact Form */}
+          <div className="mt-8">
+            {!showContactForm
+              ? (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowContactForm(true)}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    <MessageSquareIcon className="mr-2 size-4" />
+                    Send me a message
+                  </Button>
+                )
+              : (
+                  <div className="mx-auto w-full max-w-md animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <Card className="border-border/50 bg-card/50">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="font-mono text-base">Send a Message</CardTitle>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setShowContactForm(false)}
+                            className="size-8"
+                          >
+                            <XIcon className="size-4" />
+                          </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                          <div className="space-y-2">
+                            <Input
+                              type="text"
+                              placeholder="Name"
+                              className="bg-background"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Input
+                              type="email"
+                              placeholder="Email"
+                              className="bg-background"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Textarea
+                              placeholder="Your message..."
+                              rows={4}
+                              className="resize-none bg-background"
+                            />
+                          </div>
+                          <Button type="submit" className="w-full">
+                            <SendIcon className="mr-2 size-4" />
+                            Send Message
+                          </Button>
+                        </form>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )}
           </div>
 
           <p className="mt-16 text-sm text-muted-foreground">
