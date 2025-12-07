@@ -168,21 +168,40 @@ function App() {
       </div>
 
       {/* Section Navigation */}
-      <nav className="fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-3 md:flex">
-        {sections.map((section) => (
-          <button
-            key={section.id}
-            type="button"
-            onClick={() => scrollToSection(section.id)}
-            className={`cursor-pointer text-right font-mono text-sm transition-all duration-300 ${
-              activeSection === section.id
-                ? 'text-foreground'
-                : 'text-muted-foreground/50 hover:text-muted-foreground'
-            }`}
-          >
-            {activeSection === section.id ? section.name : '—'}
-          </button>
-        ))}
+      <nav className="fixed right-6 top-1/2 z-50 hidden -translate-y-1/2 animate-in fade-in duration-700 delay-1000 fill-mode-backwards md:flex">
+        {/* Connecting line - positioned between dot centers */}
+        <div className="absolute right-[4.5px] top-[5px] bottom-[5px] w-px bg-border" />
+
+        <div className="flex flex-col gap-4">
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => scrollToSection(section.id)}
+              className="group relative flex cursor-pointer items-center justify-end gap-3"
+            >
+              {/* Section name - shows on hover or when active */}
+              <span
+                className={`font-mono text-sm transition-all duration-300 ${
+                  activeSection === section.id
+                    ? 'text-foreground opacity-100'
+                    : 'text-muted-foreground opacity-0 group-hover:opacity-100'
+                }`}
+              >
+                {section.name}
+              </span>
+
+              {/* Dot indicator - solid background to cover line */}
+              <span
+                className={`relative z-10 size-2.5 rounded-full transition-all duration-300 ${
+                  activeSection === section.id
+                    ? 'scale-125 bg-primary'
+                    : 'bg-muted group-hover:bg-muted-foreground'
+                }`}
+              />
+            </button>
+          ))}
+        </div>
       </nav>
 
       {/* Hero Section */}
