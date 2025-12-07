@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Github, Mail, Twitter } from 'lucide-react';
+import { Github, Mail, Moon, Sun, Twitter } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,38 +11,35 @@ export const Route = createFileRoute('/')({
   component: App,
 });
 
-// Placeholder data - replace with your actual info
 const skills = [
   'TypeScript',
+  'JavaScript',
+  'HTML',
+  'CSS',
   'React',
-  'Node.js',
-  'Next.js',
-  'PostgreSQL',
-  'GraphQL',
+  'Tailwind',
   'AWS',
-  'Docker',
-  'Tailwind CSS',
-  'Python',
+  'CloudFlare',
 ];
 
 const experiences = [
   {
-    company: 'Company One',
-    role: 'Senior Full-stack Engineer',
-    period: '2023 - Present',
-    description: 'Building scalable web applications and leading technical initiatives.',
-  },
-  {
-    company: 'Company Two',
-    role: 'Full-stack Engineer',
-    period: '2021 - 2023',
-    description: 'Developed and maintained core product features.',
-  },
-  {
-    company: 'Company Three',
+    company: 'Helius',
     role: 'Software Engineer',
-    period: '2019 - 2021',
-    description: 'Built internal tools and customer-facing applications.',
+    period: 'May 2024 - Present',
+    description: '',
+  },
+  {
+    company: 'Google',
+    role: 'Software Engineer',
+    period: 'July 2021 - March 2024',
+    description: '',
+  },
+  {
+    company: 'Intuit',
+    role: 'Software Engineer',
+    period: 'August 2019 - July 2021',
+    description: '',
   },
 ];
 
@@ -64,15 +62,43 @@ const projects = [
 ];
 
 function App() {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark')
+        || window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   return (
     <main className="min-h-screen bg-background text-foreground">
+      {/* Theme Toggle */}
+      <div className="fixed right-6 top-6 z-50">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsDark(!isDark)}
+          aria-label="Toggle theme"
+        >
+          {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+        </Button>
+      </div>
+
       {/* Hero Section */}
       <section className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-24">
         <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">
           Abdirahman Haji
         </h1>
         <p className="mt-4 text-lg text-muted-foreground md:text-xl">
-          Senior Full-stack Engineer
+          Software Engineer
         </p>
         <div className="mt-8 flex gap-4">
           <Button variant="ghost" size="icon" asChild>
