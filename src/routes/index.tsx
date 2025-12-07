@@ -232,7 +232,7 @@ function HomePage() {
         className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
       >
         <Avatar className="mb-6 size-24 border-2 border-primary/20 md:size-32">
-          <AvatarImage src="/avatar.jpg" alt="Abdirahman Haji" />
+          <AvatarImage src="/avatar-abdirahman.webp" alt="Abdirahman Haji" className="object-cover" />
           <AvatarFallback className="animate-pulse bg-muted font-mono text-2xl md:text-3xl">
             AH
           </AvatarFallback>
