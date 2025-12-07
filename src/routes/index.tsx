@@ -5,6 +5,7 @@ import {
   ExternalLinkIcon,
   FileTextIcon,
   GithubIcon,
+  GlobeIcon,
   LinkedinIcon,
   MailIcon,
   MessageSquareIcon,
@@ -75,10 +76,11 @@ const SKILL_CATEGORIES = [
   {
     name: 'Backend',
     skills: [
-      { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-      { name: 'Redis', icon: SiRedis, color: '#DC382D' },
-      { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+      { name: 'Node.js', icon: SiNodedotjs, color: '#339933', url: 'https://nodejs.org/' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', url: 'https://www.postgresql.org/' },
+      { name: 'Redis', icon: SiRedis, color: '#DC382D', url: 'https://redis.io/' },
+      { name: 'RESTful API', icon: GlobeIcon, color: '#009688', url: 'https://aws.amazon.com/what-is/restful-api/' },
+      { name: 'GraphQL', icon: SiGraphql, color: '#E10098', url: 'https://graphql.org/' },
     ],
   },
   {
