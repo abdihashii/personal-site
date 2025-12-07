@@ -94,7 +94,7 @@ const EXPERIENCES = [
     role: 'Software Engineer',
     period: 'May 2024 - Present',
     description:
-      'Built Helius\' developer portal end-to-end as sole developer, creating a unified UI/UX for onboarding hundreds of enterprise customers and hundreds of thousands of developers. Now lead the portal, architecting full-stack systems including traditional + Solana wallet auth and fiat/crypto billing.',
+      'Built and lead Helius\' developer portal, creating a unified UI/UX that onboards hundreds of enterprise customers and hundreds of thousands of developers. Architected auth (traditional + Solana wallet) and billing (fiat/crypto) systems.',
     logo: '/logos/helius.svg',
   },
   {
