@@ -93,7 +93,8 @@ const EXPERIENCES = [
     company: 'Helius',
     role: 'Software Engineer',
     period: 'May 2024 - Present',
-    description: 'Building developer tools for the Solana ecosystem.',
+    description:
+      'Built Helius\' developer portal end-to-end as sole developer, creating a unified UI/UX for onboarding hundreds of enterprise customers and hundreds of thousands of developers. Now lead the portal, architecting full-stack systems including traditional + Solana wallet auth and fiat/crypto billing.',
     logo: '/logos/helius.svg',
   },
   {
