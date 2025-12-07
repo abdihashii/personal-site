@@ -425,7 +425,6 @@ function HomePage() {
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowContactForm(true)}
-                    className="text-muted-foreground hover:text-foreground"
                   >
                     <MessageSquareIcon className="mr-2 size-4" />
                     Send me a message
