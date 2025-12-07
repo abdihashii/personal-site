@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Github, Mail, Moon, Sun, Twitter } from 'lucide-react';
+import { ChevronDownIcon, GithubIcon, MailIcon, MoonIcon, SunIcon, TwitterIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -81,12 +81,12 @@ function App() {
           onClick={() => setIsDark(!isDark)}
           aria-label="Toggle theme"
         >
-          {isDark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+          {isDark ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
         </Button>
       </div>
 
       {/* Hero Section */}
-      <section className="flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section className="relative flex h-screen snap-start flex-col items-center justify-center px-6">
         <h1 className="font-mono text-4xl font-bold tracking-tight md:text-6xl">
           Abdirahman Haji
         </h1>
@@ -101,7 +101,7 @@ function App() {
               rel="noopener noreferrer"
               aria-label="GitHub"
             >
-              <Github className="size-5" />
+              <GithubIcon className="size-5" />
             </a>
           </Button>
           <Button variant="ghost" size="icon" asChild>
@@ -111,19 +111,29 @@ function App() {
               rel="noopener noreferrer"
               aria-label="Twitter"
             >
-              <Twitter className="size-5" />
+              <TwitterIcon className="size-5" />
             </a>
           </Button>
           <Button variant="ghost" size="icon" asChild>
             <a href="mailto:abdirahman.haji.13@gmail.com" aria-label="Email">
-              <Mail className="size-5" />
+              <MailIcon className="size-5" />
             </a>
           </Button>
         </div>
+
+        {/* Scroll Indicator */}
+        <button
+          type="button"
+          onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
+          className="absolute bottom-8 animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100"
+          aria-label="Scroll to next section"
+        >
+          <ChevronDownIcon className="size-6" />
+        </button>
       </section>
 
       {/* Skills Section */}
-      <section className="flex h-screen snap-start flex-col items-center justify-center px-6">
+      <section id="skills" className="flex h-screen snap-start flex-col items-center justify-center px-6">
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
           <div className="mt-8 flex flex-wrap gap-2">
@@ -204,7 +214,7 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github className="mr-2 size-4" />
+                <GithubIcon className="mr-2 size-4" />
                 GitHub
               </a>
             </Button>
@@ -214,13 +224,13 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter className="mr-2 size-4" />
+                <TwitterIcon className="mr-2 size-4" />
                 Twitter
               </a>
             </Button>
             <Button variant="default" asChild>
               <a href="mailto:abdirahman.haji.13@gmail.com">
-                <Mail className="mr-2 size-4" />
+                <MailIcon className="mr-2 size-4" />
                 Email
               </a>
             </Button>
