@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import {
+  ArrowUpIcon,
   ChevronDownIcon,
+  ExternalLinkIcon,
   FileTextIcon,
   GithubIcon,
   LinkedinIcon,
@@ -16,8 +18,10 @@ import {
   SiCss3,
   SiDocker,
   SiGit,
+  SiGoogle,
   SiGraphql,
   SiHtml5,
+  SiIntuit,
   SiJavascript,
   SiNextdotjs,
   SiNodedotjs,
@@ -25,6 +29,7 @@ import {
   SiPython,
   SiReact,
   SiRedis,
+  SiSolana,
   SiTailwindcss,
   SiTypescript,
   SiVercel,
@@ -92,18 +97,24 @@ const EXPERIENCES = [
     role: 'Software Engineer',
     period: 'May 2024 - Present',
     description: 'Building developer tools for the Solana ecosystem.',
+    icon: SiSolana,
+    color: '#9945FF',
   },
   {
     company: 'Google',
     role: 'Software Engineer',
     period: 'July 2021 - March 2024',
     description: 'Worked on large-scale distributed systems.',
+    icon: SiGoogle,
+    color: '#4285F4',
   },
   {
     company: 'Intuit',
     role: 'Software Engineer',
     period: 'August 2019 - July 2021',
     description: 'Built financial software products.',
+    icon: SiIntuit,
+    color: '#236CFF',
   },
 ];
 
@@ -112,11 +123,13 @@ const PROJECTS = [
     title: 'Snippet Share',
     description: 'A tool for sharing code snippets with ease.',
     url: 'https://snippet-share.com',
+    tech: ['React', 'TypeScript', 'Node.js'],
   },
   {
     title: 'AI Dev Toolkit',
     description: 'Developer tools powered by AI.',
     url: 'https://ai-dev-toolkit.com',
+    tech: ['Next.js', 'OpenAI', 'Tailwind'],
   },
 ];
 
@@ -173,6 +186,19 @@ function HomePage() {
         </Button>
       </div>
 
+      {/* Back to Top */}
+      {activeSection !== 'hero' && (
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => scrollToSection('hero')}
+          aria-label="Back to top"
+          className="fixed bottom-6 left-6 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300"
+        >
+          <ArrowUpIcon className="size-4" />
+        </Button>
+      )}
+
       {/* Section Navigation */}
       <nav className="fixed right-4 top-1/2 z-50 hidden -translate-y-1/2 animate-in fade-in fill-mode-backwards delay-1000 duration-700 md:right-6 md:flex">
         <div className="absolute bottom-[5px] right-[4.5px] top-[5px] w-px bg-border" />
@@ -182,6 +208,7 @@ function HomePage() {
               key={id}
               type="button"
               onClick={() => scrollToSection(id)}
+              aria-current={activeSection === id ? 'true' : undefined}
               className="group relative flex cursor-pointer items-center justify-end gap-3"
             >
               <span
@@ -212,7 +239,9 @@ function HomePage() {
       >
         <Avatar className="mb-6 size-24 border-2 border-primary/20 md:size-32">
           <AvatarImage src="/avatar.jpg" alt="Abdirahman Haji" />
-          <AvatarFallback className="bg-muted font-mono text-2xl md:text-3xl">AH</AvatarFallback>
+          <AvatarFallback className="animate-pulse bg-muted font-mono text-2xl md:text-3xl">
+            AH
+          </AvatarFallback>
         </Avatar>
         <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
           Abdirahman Haji
@@ -289,13 +318,16 @@ function HomePage() {
           <h2 className="font-mono text-2xl font-semibold">Experience</h2>
           <div className="mt-8 space-y-6">
             {EXPERIENCES.map((exp) => (
-              <Card key={exp.company} className="border-border/50 bg-card/50">
+              <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                 <CardHeader className="pb-2">
                   <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
                     <CardTitle className="font-mono text-lg">{exp.role}</CardTitle>
                     <span className="text-sm text-muted-foreground">{exp.period}</span>
                   </div>
-                  <CardDescription className="text-primary">{exp.company}</CardDescription>
+                  <CardDescription className="flex items-center gap-2 text-primary">
+                    <exp.icon className="size-4" style={{ color: exp.color }} />
+                    {exp.company}
+                  </CardDescription>
                 </CardHeader>
                 {exp.description && (
                   <CardContent>
@@ -326,10 +358,20 @@ function HomePage() {
               >
                 <Card className="h-full border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                   <CardHeader>
-                    <CardTitle className="font-mono text-lg">{project.title}</CardTitle>
+                    <CardTitle className="flex items-center justify-between font-mono text-lg">
+                      {project.title}
+                      <ExternalLinkIcon className="size-4 text-muted-foreground" />
+                    </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-3">
                     <p className="text-sm text-muted-foreground">{project.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.map((tech) => (
+                        <Badge key={tech} variant="secondary" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
                   </CardContent>
                 </Card>
               </a>
