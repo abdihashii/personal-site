@@ -18,10 +18,8 @@ import {
   SiCss3,
   SiDocker,
   SiGit,
-  SiGoogle,
   SiGraphql,
   SiHtml5,
-  SiIntuit,
   SiJavascript,
   SiNextdotjs,
   SiNodedotjs,
@@ -29,7 +27,6 @@ import {
   SiPython,
   SiReact,
   SiRedis,
-  SiSolana,
   SiTailwindcss,
   SiTypescript,
   SiVercel,
@@ -97,24 +94,21 @@ const EXPERIENCES = [
     role: 'Software Engineer',
     period: 'May 2024 - Present',
     description: 'Building developer tools for the Solana ecosystem.',
-    icon: SiSolana,
-    color: '#9945FF',
+    logo: '/logos/helius.svg',
   },
   {
     company: 'Google',
     role: 'Software Engineer',
     period: 'July 2021 - March 2024',
     description: 'Worked on large-scale distributed systems.',
-    icon: SiGoogle,
-    color: '#4285F4',
+    logo: '/logos/google.svg',
   },
   {
     company: 'Intuit',
     role: 'Software Engineer',
     period: 'August 2019 - July 2021',
     description: 'Built financial software products.',
-    icon: SiIntuit,
-    color: '#236CFF',
+    logo: '/logos/intuit.png',
   },
 ];
 
@@ -324,9 +318,8 @@ function HomePage() {
                     <CardTitle className="font-mono text-lg">{exp.role}</CardTitle>
                     <span className="text-sm text-muted-foreground">{exp.period}</span>
                   </div>
-                  <CardDescription className="flex items-center gap-2 text-primary">
-                    <exp.icon className="size-4" style={{ color: exp.color }} />
-                    {exp.company}
+                  <CardDescription>
+                    <img src={exp.logo} alt={exp.company} className="h-6 w-auto" />
                   </CardDescription>
                 </CardHeader>
                 {exp.description && (
