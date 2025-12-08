@@ -284,7 +284,7 @@ function HomePage() {
       >
         <div className="w-full max-w-4xl">
           <h2 className="font-mono text-2xl font-semibold">Skills</h2>
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 flex flex-col gap-6">
             {SKILL_CATEGORIES.map((category) => (
               <div key={category.name}>
                 <h3 className="mb-3 text-sm font-medium text-muted-foreground">{category.name}</h3>
@@ -322,7 +322,7 @@ function HomePage() {
               </Link>
             </Button>
           </div>
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 flex flex-col gap-6">
             {EXPERIENCES.map((exp) => (
               <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                 <CardHeader className="pb-2">
@@ -383,7 +383,7 @@ function HomePage() {
                       <ExternalLinkIcon className="size-4 text-muted-foreground" />
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
+                  <CardContent className="flex flex-col gap-3">
                     <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{project.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((tech) => (
@@ -452,7 +452,7 @@ function HomePage() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
                           <Input type="text" placeholder="Name" className="bg-background" />
                           <Input type="email" placeholder="Email" className="bg-background" />
                           <Textarea
