@@ -172,7 +172,7 @@ function HomePage() {
           className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
         >
           <div className="relative mb-6 size-24 md:size-32">
-            <Avatar className="size-full border-2 border-primary/20">
+            <Avatar className="size-full">
               <AvatarImage
                 src={avatarImages.pixelArt}
                 alt="Abdirahman Haji"
