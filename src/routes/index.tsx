@@ -334,7 +334,7 @@ function HomePage() {
                     <img
                       src={exp.logo}
                       alt={exp.company}
-                      className="h-5 max-w-28 object-contain object-left"
+                      className="h-6 w-24 object-contain object-left"
                     />
                   </CardDescription>
                 </CardHeader>
