@@ -269,13 +269,6 @@ function HomePage() {
           ))}
         </div>
 
-        <Button variant="outline" className="mt-6" asChild>
-          <Link to="/resume">
-            <FileTextIcon className="mr-2 size-4" />
-            Resume
-          </Link>
-        </Button>
-
         <button
           type="button"
           onClick={() => scrollToSection('skills')}
@@ -337,7 +330,15 @@ function HomePage() {
         className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
       >
         <div className="w-full max-w-4xl">
-          <h2 className="font-mono text-2xl font-semibold">Experience</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-mono text-2xl font-semibold">Experience</h2>
+            <Button variant="outline" asChild>
+              <Link to="/resume">
+                <FileTextIcon className="mr-2 size-4" />
+                Resume
+              </Link>
+            </Button>
+          </div>
           <div className="mt-8 space-y-6">
             {EXPERIENCES.map((exp) => (
               <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">
