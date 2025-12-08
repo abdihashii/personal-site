@@ -178,6 +178,9 @@ function HomePage() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const getExternalLinkProps = (href: string) =>
+    href.startsWith('mailto:') ? {} : { target: '_blank' as const, rel: 'noopener noreferrer' };
+
   return (
     <main className="h-screen snap-y snap-mandatory overflow-y-auto bg-background text-foreground">
       {/* Theme Toggle */}
@@ -257,12 +260,7 @@ function HomePage() {
         <div className="mt-8 flex gap-4">
           {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
             <Button key={name} variant="ghost" size="icon" asChild>
-              <a
-                href={href}
-                target={href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                aria-label={name}
-              >
+              <a href={href} aria-label={name} {...getExternalLinkProps(href)}>
                 <Icon className="size-5" />
               </a>
             </Button>
@@ -291,8 +289,8 @@ function HomePage() {
               <div key={category.name}>
                 <h3 className="mb-3 text-sm font-medium text-muted-foreground">{category.name}</h3>
                 <div className="flex flex-wrap gap-3">
-                  {category.skills.map((skill) => {
-                    const badge = (
+                  {category.skills.map((skill) => (
+                    <a key={skill.name} href={skill.url} target="_blank" rel="noopener noreferrer">
                       <Badge
                         variant="secondary"
                         className="gap-2 px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 md:gap-2.5 md:px-4 md:py-2 md:text-base"
@@ -300,23 +298,8 @@ function HomePage() {
                         <skill.icon className="size-4 md:size-5" style={{ color: skill.color }} />
                         {skill.name}
                       </Badge>
-                    );
-
-                    if ('url' in skill && skill.url) {
-                      return (
-                        <a
-                          key={skill.name}
-                          href={skill.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {badge}
-                        </a>
-                      );
-                    }
-
-                    return <span key={skill.name}>{badge}</span>;
-                  })}
+                    </a>
+                  ))}
                 </div>
               </div>
             ))}
@@ -384,13 +367,9 @@ function HomePage() {
               >
                 <Card className="h-full overflow-hidden border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                   <div className="aspect-video w-full overflow-hidden">
-                    {'image' in project && project.image
+                    {project.image
                       ? (
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="size-full object-cover"
-                          />
+                          <img src={project.image} alt={project.title} className="size-full object-cover" />
                         )
                       : (
                           <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/20 via-primary/10 to-background">
@@ -434,17 +413,8 @@ function HomePage() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-              <Button
-                key={name}
-                variant="outline"
-                className="w-full sm:w-auto"
-                asChild
-              >
-                <a
-                  href={href}
-                  target={href.startsWith('mailto:') ? undefined : '_blank'}
-                  rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                >
+              <Button key={name} variant="outline" className="w-full sm:w-auto" asChild>
+                <a href={href} {...getExternalLinkProps(href)}>
                   <Icon className="mr-2 size-4" />
                   {name}
                 </a>
@@ -483,27 +453,13 @@ function HomePage() {
                       </CardHeader>
                       <CardContent>
                         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                          <div className="space-y-2">
-                            <Input
-                              type="text"
-                              placeholder="Name"
-                              className="bg-background"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Input
-                              type="email"
-                              placeholder="Email"
-                              className="bg-background"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Textarea
-                              placeholder="Your message..."
-                              rows={4}
-                              className="resize-none bg-background"
-                            />
-                          </div>
+                          <Input type="text" placeholder="Name" className="bg-background" />
+                          <Input type="email" placeholder="Email" className="bg-background" />
+                          <Textarea
+                            placeholder="Your message..."
+                            rows={4}
+                            className="resize-none bg-background"
+                          />
                           <Button type="submit" className="w-full">
                             <SendIcon className="mr-2 size-4" />
                             Send Message
