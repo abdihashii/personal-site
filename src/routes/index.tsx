@@ -365,7 +365,7 @@ function HomePage() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <Card className="h-full overflow-hidden border-border/50 bg-card/50 transition-colors hover:border-primary/50">
+                <Card className="h-full overflow-hidden border-border/50 bg-card/50 pt-0 transition-colors hover:border-primary/50">
                   <div className="aspect-video w-full overflow-hidden">
                     {project.image
                       ? (
