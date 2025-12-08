@@ -174,10 +174,30 @@ function HomePage() {
     return () => observer.disconnect();
   }, []);
 
+  /**
+   * Smoothly scrolls to a section by its ID. This is used to navigate to different sections of the
+   * page.
+   *
+   * @param id - The ID of the section to scroll to.
+   */
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  /**
+   * Returns the props for an external link. This is used to open external links in a new tab and
+   * prevent the page from navigating to the external link.
+   *
+   * @param href - The href of the external link.
+   * @returns The props for the external link.
+   *
+   * @example
+   * <Button variant="ghost" asChild>
+   *   <a href="https://www.google.com" {...getExternalLinkProps('https://www.google.com')}>
+   *     Google
+   *   </a>
+   * </Button>
+   */
   const getExternalLinkProps = (href: string) =>
     href.startsWith('mailto:') ? {} : { target: '_blank' as const, rel: 'noopener noreferrer' };
 
