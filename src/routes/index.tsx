@@ -5,37 +5,13 @@ import {
   ChevronDownIcon,
   ExternalLinkIcon,
   FileTextIcon,
-  GithubIcon,
-  GlobeIcon,
-  LinkedinIcon,
-  MailIcon,
   MessageSquareIcon,
   MoonIcon,
   SendIcon,
   SunIcon,
-  TwitterIcon,
   XIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import {
-  SiAmazonwebservices,
-  SiCloudflare,
-  SiCss3,
-  SiDocker,
-  SiGit,
-  SiGraphql,
-  SiHtml5,
-  SiJavascript,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiPostgresql,
-  SiPython,
-  SiReact,
-  SiRedis,
-  SiTailwindcss,
-  SiTypescript,
-  SiVercel,
-} from 'react-icons/si';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -45,110 +21,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAvatarPixelTransition } from '@/hooks/use-avatar-pixel-transition';
+import { EXPERIENCES, PROJECTS, SECTIONS, SKILL_CATEGORIES, SOCIAL_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
-
-const SOCIAL_LINKS = [
-  { name: 'GitHub', href: 'https://github.com/abdihashii', icon: GithubIcon },
-  { name: 'Twitter', href: 'https://twitter.com/abdihashii', icon: TwitterIcon },
-  { name: 'Email', href: 'mailto:abdirahman.haji.13@gmail.com', icon: MailIcon },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/abdirahman-haji', icon: LinkedinIcon },
-];
-
-const SKILL_CATEGORIES = [
-  {
-    name: 'Languages',
-    skills: [
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', url: 'https://www.typescriptlang.org/' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-      { name: 'Python', icon: SiPython, color: '#3776AB', url: 'https://www.python.org/' },
-      { name: 'HTML', icon: SiHtml5, color: '#E34F26', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
-      { name: 'CSS', icon: SiCss3, color: '#1572B6', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
-    ],
-  },
-  {
-    name: 'Frontend',
-    skills: [
-      { name: 'React', icon: SiReact, color: '#61DAFB', url: 'https://react.dev/' },
-      { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF', url: 'https://nextjs.org/' },
-      { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4', url: 'https://tailwindcss.com/' },
-    ],
-  },
-  {
-    name: 'Backend',
-    skills: [
-      { name: 'Node.js', icon: SiNodedotjs, color: '#339933', url: 'https://nodejs.org/' },
-      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', url: 'https://www.postgresql.org/' },
-      { name: 'Redis', icon: SiRedis, color: '#DC382D', url: 'https://redis.io/' },
-      { name: 'RESTful API', icon: GlobeIcon, color: '#009688', url: 'https://aws.amazon.com/what-is/restful-api/' },
-      { name: 'GraphQL', icon: SiGraphql, color: '#E10098', url: 'https://graphql.org/' },
-    ],
-  },
-  {
-    name: 'DevOps & Cloud',
-    skills: [
-      { name: 'Docker', icon: SiDocker, color: '#2496ED', url: 'https://www.docker.com/' },
-      { name: 'Git', icon: SiGit, color: '#F05032', url: 'https://git-scm.com/' },
-      { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900', url: 'https://aws.amazon.com/' },
-      { name: 'Vercel', icon: SiVercel, color: '#FFFFFF', url: 'https://vercel.com/' },
-      { name: 'CloudFlare', icon: SiCloudflare, color: '#F38020', url: 'https://www.cloudflare.com/' },
-    ],
-  },
-];
-
-const EXPERIENCES = [
-  {
-    company: 'Helius',
-    role: 'Software Engineer',
-    period: 'May 2024 - Present',
-    description:
-      'Built and lead Helius\' developer portal, creating a unified UI/UX that onboards hundreds of enterprise customers and hundreds of thousands of developers. Architected auth (traditional + Solana wallet) and billing (fiat/crypto) systems.',
-    logo: '/logos/helius.svg',
-  },
-  {
-    company: 'Google',
-    role: 'Software Engineer',
-    period: 'August 2021 - May 2024',
-    description:
-      'Search Infrastructure team. Helped pioneer the transition from monolithic to micro-frontend architecture for Search features. Contributed to an AI-driven UI Agent to streamline feature development.',
-    logo: '/logos/google.svg',
-  },
-  {
-    company: 'Intuit',
-    role: 'Software Engineer',
-    period: 'August 2019 - July 2021',
-    description:
-      'Re-engineered platform UI to React, improving user experience. Collaborated in full-stack development to equip thousands of engineers and marketers with experimentation tools.',
-    logo: '/logos/intuit.png',
-  },
-];
-
-const PROJECTS = [
-  {
-    title: 'Snippet Share',
-    description: 'A secure and easy way to share code snippets with others. Create self-destructing, password-protected snippets with end-to-end encryption.',
-    url: 'https://snippet-share.com',
-    image: 'https://snippet-share.com/og-image.png',
-    tech: ['React', 'TypeScript', 'Node.js'],
-  },
-  {
-    title: 'AI Dev Toolkit',
-    description: 'Developer tools powered by AI.',
-    url: 'https://ai-dev-toolkit.com',
-    tech: ['Next.js', 'OpenAI', 'Tailwind'],
-  },
-];
-
-const SECTIONS = [
-  { id: 'hero', name: 'Home' },
-  { id: 'skills', name: 'Skills' },
-  { id: 'experience', name: 'Experience' },
-  { id: 'projects', name: 'Projects' },
-  { id: 'contact', name: 'Contact' },
-] as const;
 
 function HomePage() {
   const [isDark, setIsDark] = useState(true);
