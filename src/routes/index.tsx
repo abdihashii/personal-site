@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowUpIcon,
   ChevronDownIcon,
@@ -15,7 +16,7 @@ import {
   TwitterIcon,
   XIcon,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   SiAmazonwebservices,
   SiCloudflare,
@@ -42,6 +43,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -150,10 +152,95 @@ function HomePage() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [showContactForm, setShowContactForm] = useState(false);
+  const [showAltAvatar, setShowAltAvatar] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [pixelColors, setPixelColors] = useState<string[]>([]);
+
+  // Shuffled indices for pixel grid animation (8x8 = 64 blocks)
+  const [shuffledIndices] = useState(() => {
+    const indices = Array.from({ length: 64 }, (_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return indices;
+  });
+
+  // Sample colors from the current avatar image for the pixel grid
+  const sampleColorsFromImage = useCallback((imageSrc: string) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const gridSize = 8;
+      canvas.width = gridSize;
+      canvas.height = gridSize;
+
+      // Draw image scaled down to 8x8
+      ctx.drawImage(img, 0, 0, gridSize, gridSize);
+
+      // Extract colors for each pixel
+      const colors: string[] = [];
+      const imageData = ctx.getImageData(0, 0, gridSize, gridSize);
+      for (let i = 0; i < 64; i++) {
+        const idx = i * 4;
+        const r = imageData.data[idx];
+        const g = imageData.data[idx + 1];
+        const b = imageData.data[idx + 2];
+        colors.push(`rgb(${r}, ${g}, ${b})`);
+      }
+      setPixelColors(colors);
+    };
+    img.src = imageSrc;
+  }, []);
+
+  // Ref to track current avatar for sampling inside interval
+  const showAltAvatarRef = useRef(showAltAvatar);
+  useEffect(() => {
+    showAltAvatarRef.current = showAltAvatar;
+  }, [showAltAvatar]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
+
+  useEffect(() => {
+    let swapTimeout: ReturnType<typeof setTimeout>;
+    let endTimeout: ReturnType<typeof setTimeout>;
+
+    // Timing: pixels animate with delay up to 63 * 0.008s = 504ms + 50ms duration = ~554ms
+    const pixelAnimationDuration = 600; // Time for all pixels to fully appear/disappear
+
+    const interval = setInterval(() => {
+      // Sample colors from the CURRENT avatar before transitioning
+      const currentAvatar = showAltAvatarRef.current
+        ? '/avatar-abdirahman.webp'
+        : '/avatar-abdirahman-8-bit.webp';
+      sampleColorsFromImage(currentAvatar);
+
+      // Start transition animation
+      setIsTransitioning(true);
+
+      // Swap avatar AFTER all pixels have fully appeared
+      swapTimeout = setTimeout(() => {
+        setShowAltAvatar((prev) => !prev);
+      }, pixelAnimationDuration);
+
+      // End transition AFTER pixels have animated out
+      endTimeout = setTimeout(() => {
+        setIsTransitioning(false);
+      }, pixelAnimationDuration * 2);
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(swapTimeout);
+      clearTimeout(endTimeout);
+    };
+  }, [sampleColorsFromImage]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -266,12 +353,50 @@ function HomePage() {
         id="hero"
         className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
       >
-        <Avatar className="mb-6 size-24 border-2 border-primary/20 md:size-32">
-          <AvatarImage src="/avatar-abdirahman.webp" alt="Abdirahman Haji" className="object-cover" />
-          <AvatarFallback className="animate-pulse bg-muted font-mono text-2xl md:text-3xl">
-            AH
-          </AvatarFallback>
-        </Avatar>
+        <div className="relative mb-6 size-24 md:size-32">
+          <Avatar className="size-full border-2 border-primary/20">
+            <AvatarImage
+              src="/avatar-abdirahman-8-bit.webp"
+              alt="Abdirahman Haji"
+              className={cn(
+                'absolute inset-0 object-cover',
+                showAltAvatar ? 'opacity-0' : 'opacity-100',
+              )}
+            />
+            <AvatarImage
+              src="/avatar-abdirahman.webp"
+              alt="Abdirahman Haji"
+              className={cn(
+                'absolute inset-0 object-cover',
+                showAltAvatar ? 'opacity-100' : 'opacity-0',
+              )}
+            />
+            <AvatarFallback className="animate-pulse bg-muted font-mono text-2xl md:text-3xl">
+              AH
+            </AvatarFallback>
+          </Avatar>
+
+          {/* Pixel grid overlay for 8-bit transition effect */}
+          <AnimatePresence>
+            {isTransitioning && pixelColors.length > 0 && (
+              <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 overflow-hidden rounded-full">
+                {shuffledIndices.map((randomIndex) => (
+                  <motion.div
+                    key={randomIndex}
+                    style={{ backgroundColor: pixelColors[randomIndex] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: 0.05,
+                      delay: randomIndex * 0.008,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
         <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
           Abdirahman Haji
         </h1>
