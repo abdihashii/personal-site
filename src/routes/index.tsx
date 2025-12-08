@@ -393,7 +393,7 @@ function HomePage() {
                         )
                       : (
                           <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/20 via-primary/10 to-background">
-                            <span className="font-mono text-2xl text-muted-foreground/50">{project.title[0]}</span>
+                            <span className="font-mono text-lg text-muted-foreground/50">{project.title}</span>
                           </div>
                         )}
                   </div>
