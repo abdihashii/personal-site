@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const AVATAR_IMAGES = {
-  pixelArt: '/avatar-abdirahman-8-bit.webp',
-  photo: '/avatar-abdirahman.webp',
+  pixelArt: '/avatars/avatar-abdirahman-8-bit.webp',
+  photo: '/avatars/avatar-abdirahman.webp',
 } as const;
 
 const GRID_SIZE = 8;
