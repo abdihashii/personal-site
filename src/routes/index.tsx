@@ -125,7 +125,7 @@ const EXPERIENCES = [
 const PROJECTS = [
   {
     title: 'Snippet Share',
-    description: 'A tool for sharing code snippets with ease.',
+    description: 'A secure and easy way to share code snippets with others. Create self-destructing, password-protected snippets with end-to-end encryption.',
     url: 'https://snippet-share.com',
     tech: ['React', 'TypeScript', 'Node.js'],
   },
