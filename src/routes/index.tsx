@@ -127,6 +127,7 @@ const PROJECTS = [
     title: 'Snippet Share',
     description: 'A secure and easy way to share code snippets with others. Create self-destructing, password-protected snippets with end-to-end encryption.',
     url: 'https://snippet-share.com',
+    image: 'https://snippet-share.com/og-image.png',
     tech: ['React', 'TypeScript', 'Node.js'],
   },
   {
@@ -380,7 +381,22 @@ function HomePage() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <Card className="h-full border-border/50 bg-card/50 transition-colors hover:border-primary/50">
+                <Card className="h-full overflow-hidden border-border/50 bg-card/50 transition-colors hover:border-primary/50">
+                  <div className="aspect-video w-full overflow-hidden">
+                    {'image' in project && project.image
+                      ? (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="size-full object-cover"
+                          />
+                        )
+                      : (
+                          <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/20 via-primary/10 to-background">
+                            <span className="font-mono text-2xl text-muted-foreground/50">{project.title[0]}</span>
+                          </div>
+                        )}
+                  </div>
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between font-mono text-lg">
                       {project.title}
@@ -388,7 +404,7 @@ function HomePage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <p className="h-[2lh] line-clamp-2 text-sm text-muted-foreground">{project.description}</p>
+                    <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{project.description}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((tech) => (
                         <Badge key={tech} variant="secondary" className="text-xs">
