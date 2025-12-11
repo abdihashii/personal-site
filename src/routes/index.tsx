@@ -41,6 +41,8 @@ function HomePage() {
     avatarImages,
   } = useAvatarPixelTransition();
 
+  const highlights = getHighlights();
+
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
@@ -232,9 +234,11 @@ function HomePage() {
 
           {/* Highlights */}
           <div className="mt-10 w-full max-w-4xl">
-            <div className="grid gap-4 sm:grid-cols-3">
-              {getHighlights().map((highlight) => (
-                <HighlightCard key={highlight.title} highlight={highlight} />
+            <div className="grid gap-4 sm:grid-cols-2">
+              {highlights.map((highlight, index) => (
+                <div key={highlight.title} className={index === 0 && highlights.length === 3 ? 'sm:col-span-2' : ''}>
+                  <HighlightCard highlight={highlight} />
+                </div>
               ))}
             </div>
           </div>
