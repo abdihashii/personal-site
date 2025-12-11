@@ -19,6 +19,8 @@ import {
   SiVercel,
 } from 'react-icons/si';
 
+import type { Highlight, OpenSource, Podcast, Project, Talk, Video, Writing } from './types';
+
 export const SOCIAL_LINKS = [
   { name: 'GitHub', href: 'https://github.com/abdihashii', icon: GithubIcon },
   { name: 'Twitter', href: 'https://twitter.com/abdihashii', icon: TwitterIcon },
@@ -94,23 +96,46 @@ export const EXPERIENCES = [
   },
 ];
 
-export const PROJECTS = [
+export const PROJECTS: Project[] = [
   {
+    type: 'project',
     title: 'Snippet Share',
     description: 'A secure and easy way to share code snippets with others. Create self-destructing, password-protected snippets with end-to-end encryption.',
     url: 'https://snippet-share.com',
     image: 'https://snippet-share.com/og-image.png',
     tech: ['React', 'TypeScript', 'Node.js'],
-    featured: true,
+    highlighted: true,
+    priority: 1,
   },
   {
+    type: 'project',
     title: 'AI Dev Toolkit',
     description: 'Developer tools powered by AI.',
     url: 'https://ai-dev-toolkit.com',
     tech: ['Next.js', 'OpenAI', 'Tailwind'],
-    featured: true,
+    highlighted: true,
+    priority: 2,
   },
 ];
+
+export const WRITING: Writing[] = [];
+export const VIDEOS: Video[] = [];
+export const TALKS: Talk[] = [];
+export const PODCASTS: Podcast[] = [];
+export const OPEN_SOURCE: OpenSource[] = [];
+
+export function getHighlights(): Highlight[] {
+  return [
+    ...PROJECTS.filter((p) => p.highlighted),
+    ...WRITING.filter((w) => w.highlighted),
+    ...VIDEOS.filter((v) => v.highlighted),
+    ...TALKS.filter((t) => t.highlighted),
+    ...PODCASTS.filter((p) => p.highlighted),
+    ...OPEN_SOURCE.filter((o) => o.highlighted),
+  ]
+    .sort((a, b) => (a.priority ?? 99) - (b.priority ?? 99))
+    .slice(0, 3);
+}
 
 export const SECTIONS = [
   { id: 'hero', name: 'Home' },

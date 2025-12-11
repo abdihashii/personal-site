@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowUpIcon,
   ChevronDownIcon,
-  ExternalLinkIcon,
   FileTextIcon,
   MessageSquareIcon,
   MoonIcon,
@@ -13,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import { HighlightCard } from '@/components/highlight-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAvatarPixelTransition } from '@/hooks/use-avatar-pixel-transition';
-import { EXPERIENCES, PROJECTS, SECTIONS, SKILL_CATEGORIES, SOCIAL_LINKS } from '@/lib/constants';
+import { EXPERIENCES, getHighlights, PROJECTS, SECTIONS, SKILL_CATEGORIES, SOCIAL_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/')({
@@ -230,49 +230,12 @@ function HomePage() {
             ))}
           </div>
 
-          {/* Featured Projects */}
-          <div className="mt-10 w-full max-w-2xl">
-            <div className="grid gap-4 sm:grid-cols-2">
-              {PROJECTS.filter((p) => p.featured).slice(0, 2).map((project) => (
-                <a
-                  key={project.title}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <Card className="h-full overflow-hidden border-border/50 bg-card/50 transition-colors hover:border-primary/50">
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between font-mono text-lg">
-                        {project.title}
-                        <ExternalLinkIcon className="size-4 text-muted-foreground" />
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-3">
-                      <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.tech.slice(0, 3).map((tech) => (
-                          <Badge key={tech} variant="secondary" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
+          {/* Highlights */}
+          <div className="mt-10 w-full max-w-4xl">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {getHighlights().map((highlight) => (
+                <HighlightCard key={highlight.title} highlight={highlight} />
               ))}
-            </div>
-
-            {/* View all projects link */}
-            <div className="mt-4 text-center">
-              <button
-                type="button"
-                onClick={() => scrollToSection('projects')}
-                className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                View all projects
-                <ChevronDownIcon className="size-4" />
-              </button>
             </div>
           </div>
 
@@ -370,43 +333,7 @@ function HomePage() {
             <h2 className="font-mono text-2xl font-semibold">Projects</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {PROJECTS.map((project) => (
-                <a
-                  key={project.title}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <Card className="h-full overflow-hidden border-border/50 bg-card/50 pt-0 transition-colors hover:border-primary/50">
-                    <div className="aspect-video w-full overflow-hidden">
-                      {project.image
-                        ? (
-                            <img src={project.image} alt={project.title} className="size-full object-cover" />
-                          )
-                        : (
-                            <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/20 via-primary/10 to-background">
-                              <span className="font-mono text-lg text-muted-foreground/50">{project.title}</span>
-                            </div>
-                          )}
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="flex items-center justify-between font-mono text-lg">
-                        {project.title}
-                        <ExternalLinkIcon className="size-4 text-muted-foreground" />
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-3">
-                      <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.tech.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
+                <HighlightCard key={project.title} highlight={project} showImage />
               ))}
             </div>
           </div>
