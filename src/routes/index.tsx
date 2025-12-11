@@ -230,11 +230,57 @@ function HomePage() {
             ))}
           </div>
 
+          {/* Featured Projects */}
+          <div className="mt-10 w-full max-w-2xl">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {PROJECTS.filter((p) => p.featured).slice(0, 2).map((project) => (
+                <a
+                  key={project.title}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Card className="h-full overflow-hidden border-border/50 bg-card/50 transition-colors hover:border-primary/50">
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between font-mono text-lg">
+                        {project.title}
+                        <ExternalLinkIcon className="size-4 text-muted-foreground" />
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-3">
+                      <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{project.description}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 3).map((tech) => (
+                          <Badge key={tech} variant="secondary" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              ))}
+            </div>
+
+            {/* View all projects link */}
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => scrollToSection('projects')}
+                className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                View all projects
+                <ChevronDownIcon className="size-4" />
+              </button>
+            </div>
+          </div>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <button
                 type="button"
-                onClick={() => scrollToSection('skills')}
+                onClick={() => scrollToSection('experience')}
                 className="absolute bottom-8 animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100"
                 aria-label="Scroll to next section"
               >
@@ -245,36 +291,6 @@ function HomePage() {
               <p>Scroll down</p>
             </TooltipContent>
           </Tooltip>
-        </section>
-
-        {/* Skills */}
-        <section
-          id="skills"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
-          <div className="w-full max-w-4xl">
-            <h2 className="font-mono text-2xl font-semibold">Skills</h2>
-            <div className="mt-8 flex flex-col gap-6">
-              {SKILL_CATEGORIES.map((category) => (
-                <div key={category.name}>
-                  <h3 className="mb-3 text-sm font-medium text-muted-foreground">{category.name}</h3>
-                  <div className="flex flex-wrap gap-3">
-                    {category.skills.map((skill) => (
-                      <a key={skill.name} href={skill.url} target="_blank" rel="noopener noreferrer">
-                        <Badge
-                          variant="secondary"
-                          className="gap-2 px-3 py-1.5 font-mono text-sm transition-all hover:scale-105 md:gap-2.5 md:px-4 md:py-2 md:text-base"
-                        >
-                          <skill.icon className="size-4 md:size-5" style={{ color: skill.color }} />
-                          {skill.name}
-                        </Badge>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* Experience */}
@@ -292,6 +308,32 @@ function HomePage() {
                 </Link>
               </Button>
             </div>
+
+            {/* Condensed Skills Summary */}
+            <div className="mt-6 rounded-lg border border-border/30 bg-card/30 p-4">
+              <h3 className="mb-3 font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                Tech Stack
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {SKILL_CATEGORIES.flatMap((category) =>
+                  category.skills.slice(0, 3).map((skill) => (
+                    <a
+                      key={skill.name}
+                      href={skill.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-transform hover:scale-105"
+                    >
+                      <Badge variant="secondary" className="gap-1.5 px-2 py-1 text-xs">
+                        <skill.icon className="size-3" style={{ color: skill.color }} />
+                        {skill.name}
+                      </Badge>
+                    </a>
+                  )),
+                )}
+              </div>
+            </div>
+
             <div className="mt-8 flex flex-col gap-6">
               {EXPERIENCES.map((exp) => (
                 <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">

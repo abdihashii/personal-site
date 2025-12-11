@@ -101,18 +101,19 @@ export const PROJECTS = [
     url: 'https://snippet-share.com',
     image: 'https://snippet-share.com/og-image.png',
     tech: ['React', 'TypeScript', 'Node.js'],
+    featured: true,
   },
   {
     title: 'AI Dev Toolkit',
     description: 'Developer tools powered by AI.',
     url: 'https://ai-dev-toolkit.com',
     tech: ['Next.js', 'OpenAI', 'Tailwind'],
+    featured: true,
   },
 ];
 
 export const SECTIONS = [
   { id: 'hero', name: 'Home' },
-  { id: 'skills', name: 'Skills' },
   { id: 'experience', name: 'Experience' },
   { id: 'projects', name: 'Projects' },
   { id: 'contact', name: 'Contact' },
