@@ -78,30 +78,33 @@ export const TECH = {
   NEXTJS: 'Next.js',
   TANSTACK_START: 'TanStack Start',
 
-  // 4: API Framework
+  // 4: Data Fetching
+  TANSTACK_QUERY: 'TanStack Query',
+
+  // 5: API Framework
   HONO: 'Hono',
 
-  // 5: Infrastructure
+  // 6: Infrastructure
   CLOUDFLARE_WORKERS: 'Cloudflare Workers',
   VERCEL: 'Vercel',
 
-  // 6: Databases
+  // 7: Databases
   POSTGRESQL: 'PostgreSQL',
   SUPABASE: 'Supabase',
 
-  // 7: Styling
+  // 8: Styling
   TAILWIND_CSS: 'Tailwind CSS',
 
-  // 8: AI
+  // 9: AI
   VERCEL_AI_SDK: 'Vercel AI SDK',
 
-  // 9: Validation
+  // 10: Validation
   ZOD: 'Zod',
 
-  // 10: Architecture
+  // 11: Architecture
   MONOREPO: 'Monorepo',
 
-  // 11: Hooks (differentiators - always last)
+  // 12: Hooks (differentiators - always last)
   E2E_ENCRYPTION: 'End-to-End Encryption',
   ZERO_KNOWLEDGE_BYOK: 'Zero-Knowledge BYOK',
 } as const;
@@ -134,7 +137,7 @@ export const EXPERIENCES = [
 ];
 
 // Tech badges should follow the order defined in TECH constant:
-// anchors → frameworks → API → infra → db → styling → AI → validation → architecture → hooks
+// anchors → frameworks → data fetching → API → infra → db → styling → AI → validation → architecture → hooks
 export const PROJECTS: Project[] = [
   {
     type: 'project',
@@ -151,7 +154,7 @@ export const PROJECTS: Project[] = [
     title: 'AI Dev Toolkit',
     description: 'Suite of AI dev tools where your API keys never touch the server. BYOK architecture means browser-to-provider encryption with zero backend storage.',
     url: 'https://ai-dev-toolkit.com',
-    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.TANSTACK_START, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.VERCEL_AI_SDK, TECH.ZERO_KNOWLEDGE_BYOK],
+    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.TANSTACK_START, TECH.TANSTACK_QUERY, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.VERCEL_AI_SDK, TECH.ZERO_KNOWLEDGE_BYOK],
     highlighted: true,
     priority: 2,
   },
