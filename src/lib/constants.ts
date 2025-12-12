@@ -110,9 +110,9 @@ export const PROJECTS: Project[] = [
   {
     type: 'project',
     title: 'AI Dev Toolkit',
-    description: 'Developer tools powered by AI.',
+    description: 'Suite of AI dev tools where your API keys never touch the server. BYOK architecture means browser-to-provider encryption with zero backend storage.',
     url: 'https://ai-dev-toolkit.com',
-    tech: ['Next.js', 'OpenAI', 'Tailwind'],
+    tech: ['React', 'TypeScript', 'Cloudflare Workers', 'TanStack Start', 'Hono', 'Vercel AI SDK', 'Zero-Knowledge BYOK'],
     highlighted: true,
     priority: 2,
   },
