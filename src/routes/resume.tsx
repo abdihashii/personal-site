@@ -28,12 +28,20 @@ function ResumePage() {
 
       {/* PDF Viewer */}
       <div className="flex-1">
-        <iframe
-          src="/resume.pdf"
+        <object
+          data="/resume.pdf"
+          type="application/pdf"
           className="size-full"
-          title="Resume"
-          sandbox="allow-same-origin"
-        />
+          aria-label="Resume"
+        >
+          <p className="p-8 text-center">
+            Unable to display PDF.
+            {' '}
+            <a href="/resume.pdf" download className="text-primary underline">
+              Download it instead
+            </a>
+          </p>
+        </object>
       </div>
     </main>
   );
