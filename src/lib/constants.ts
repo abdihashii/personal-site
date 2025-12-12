@@ -145,7 +145,7 @@ export const PROJECTS: Project[] = [
     description: 'Privacy-first code sharing where encryption happens in your browser. End-to-end encrypted snippets with password protection and self-destruct timers.',
     url: 'https://snippet-share.com',
     image: 'https://snippet-share.com/og-image.png',
-    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.POSTGRESQL, TECH.SUPABASE, TECH.TAILWIND_CSS, TECH.ZOD, TECH.MONOREPO, TECH.E2E_ENCRYPTION],
+    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.TANSTACK_START, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.POSTGRESQL, TECH.SUPABASE, TECH.TAILWIND_CSS, TECH.ZOD, TECH.MONOREPO, TECH.E2E_ENCRYPTION],
     highlighted: true,
     priority: 1,
   },
