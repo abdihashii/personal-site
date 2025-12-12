@@ -133,6 +133,8 @@ export const EXPERIENCES = [
   },
 ];
 
+// Tech badges should follow the order defined in TECH constant:
+// anchors → frameworks → API → infra → db → styling → AI → validation → architecture → hooks
 export const PROJECTS: Project[] = [
   {
     type: 'project',
