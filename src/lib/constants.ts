@@ -69,6 +69,43 @@ export const SKILL_CATEGORIES = [
   },
 ];
 
+export const TECH = {
+  // 1-2: Anchors
+  REACT: 'React',
+  TYPESCRIPT: 'TypeScript',
+
+  // 3: Frameworks
+  NEXTJS: 'Next.js',
+  TANSTACK_START: 'TanStack Start',
+
+  // 4: API Framework
+  HONO: 'Hono',
+
+  // 5: Infrastructure
+  CLOUDFLARE_WORKERS: 'Cloudflare Workers',
+  VERCEL: 'Vercel',
+
+  // 6: Databases
+  POSTGRESQL: 'PostgreSQL',
+  SUPABASE: 'Supabase',
+
+  // 7: Styling
+  TAILWIND_CSS: 'Tailwind CSS',
+
+  // 8: AI
+  VERCEL_AI_SDK: 'Vercel AI SDK',
+
+  // 9: Validation
+  ZOD: 'Zod',
+
+  // 10: Architecture
+  MONOREPO: 'Monorepo',
+
+  // 11: Hooks (differentiators - always last)
+  E2E_ENCRYPTION: 'End-to-End Encryption',
+  ZERO_KNOWLEDGE_BYOK: 'Zero-Knowledge BYOK',
+} as const;
+
 export const EXPERIENCES = [
   {
     company: 'Helius',
@@ -103,7 +140,7 @@ export const PROJECTS: Project[] = [
     description: 'Privacy-first code sharing where encryption happens in your browser. End-to-end encrypted snippets with password protection and self-destruct timers.',
     url: 'https://snippet-share.com',
     image: 'https://snippet-share.com/og-image.png',
-    tech: ['React', 'TypeScript', 'Cloudflare Workers', 'Hono', 'PostgreSQL', 'Tailwind CSS', 'End-to-End Encryption', 'Monorepo', 'Supabase', 'Zod'],
+    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.POSTGRESQL, TECH.SUPABASE, TECH.TAILWIND_CSS, TECH.ZOD, TECH.MONOREPO, TECH.E2E_ENCRYPTION],
     highlighted: true,
     priority: 1,
   },
@@ -112,7 +149,7 @@ export const PROJECTS: Project[] = [
     title: 'AI Dev Toolkit',
     description: 'Suite of AI dev tools where your API keys never touch the server. BYOK architecture means browser-to-provider encryption with zero backend storage.',
     url: 'https://ai-dev-toolkit.com',
-    tech: ['React', 'TypeScript', 'Cloudflare Workers', 'TanStack Start', 'Hono', 'Vercel AI SDK', 'Zero-Knowledge BYOK'],
+    tech: [TECH.REACT, TECH.TYPESCRIPT, TECH.TANSTACK_START, TECH.HONO, TECH.CLOUDFLARE_WORKERS, TECH.VERCEL_AI_SDK, TECH.ZERO_KNOWLEDGE_BYOK],
     highlighted: true,
     priority: 2,
   },
