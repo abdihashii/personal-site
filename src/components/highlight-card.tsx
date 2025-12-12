@@ -69,35 +69,41 @@ export function HighlightCard({ highlight, showImage = false }: HighlightCardPro
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{highlight.description}</p>
-          <div className="flex flex-wrap gap-1.5">
-            {/* Type badge for non-projects */}
-            {typeBadge && (
-              <Badge variant="outline" className="gap-1 text-xs">
-                <typeBadge.icon className="size-3" />
-                {typeBadge.label}
-              </Badge>
-            )}
+          <div className="relative">
+            {/* Left fade */}
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-4 bg-linear-to-r from-card/80 to-transparent" />
+            {/* Right fade */}
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-4 bg-linear-to-l from-card/80 to-transparent" />
+            <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+              {/* Type badge for non-projects */}
+              {typeBadge && (
+                <Badge variant="outline" className="gap-1 text-xs">
+                  <typeBadge.icon className="size-3" />
+                  {typeBadge.label}
+                </Badge>
+              )}
 
-            {/* Duration for videos/talks/podcasts */}
-            {'duration' in highlight && highlight.duration && (
-              <Badge variant="secondary" className="text-xs">
-                {highlight.duration}
-              </Badge>
-            )}
+              {/* Duration for videos/talks/podcasts */}
+              {'duration' in highlight && highlight.duration && (
+                <Badge variant="secondary" className="text-xs">
+                  {highlight.duration}
+                </Badge>
+              )}
 
-            {/* Reading time for writing */}
-            {'readingTime' in highlight && highlight.readingTime && (
-              <Badge variant="secondary" className="text-xs">
-                {highlight.readingTime}
-              </Badge>
-            )}
+              {/* Reading time for writing */}
+              {'readingTime' in highlight && highlight.readingTime && (
+                <Badge variant="secondary" className="text-xs">
+                  {highlight.readingTime}
+                </Badge>
+              )}
 
-            {/* Tech stack for projects and OSS */}
-            {'tech' in highlight && highlight.tech.map((tech) => (
-              <Badge key={tech} variant="secondary" className="text-xs">
-                {tech}
-              </Badge>
-            ))}
+              {/* Tech stack for projects and OSS */}
+              {'tech' in highlight && highlight.tech.map((tech) => (
+                <Badge key={tech} variant="secondary" className="text-xs">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>
