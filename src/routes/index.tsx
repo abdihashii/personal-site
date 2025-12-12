@@ -4,6 +4,7 @@ import {
   ArrowUpIcon,
   ChevronDownIcon,
   FileTextIcon,
+  LoaderIcon,
   MessageSquareIcon,
   MoonIcon,
   SendIcon,
@@ -32,6 +33,9 @@ function HomePage() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [showContactForm, setShowContactForm] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const {
     showPixelArt,
@@ -395,19 +399,83 @@ function HomePage() {
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-                            <Input type="text" placeholder="Name" className="bg-background" />
-                            <Input type="email" placeholder="Email" className="bg-background" />
-                            <Textarea
-                              placeholder="Your message..."
-                              rows={4}
-                              className="resize-none bg-background"
-                            />
-                            <Button type="submit" className="w-full">
-                              <SendIcon className="mr-2 size-4" />
-                              Send Message
-                            </Button>
-                          </form>
+                          {submitStatus === 'success'
+                            ? (
+                                <div className="py-4 text-center text-green-600 dark:text-green-400">
+                                  <p className="font-medium">Message sent!</p>
+                                  <p className="mt-1 text-sm text-muted-foreground">I'll get back to you soon.</p>
+                                </div>
+                              )
+                            : (
+                                <form
+                                  className="flex flex-col gap-4"
+                                  onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    setIsSubmitting(true);
+                                    setSubmitStatus('idle');
+                                    try {
+                                      const res = await fetch('/api/contact', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(formData),
+                                      });
+                                      if (res.ok) {
+                                        setSubmitStatus('success');
+                                        setFormData({ name: '', email: '', message: '' });
+                                      } else {
+                                        setSubmitStatus('error');
+                                      }
+                                    } catch {
+                                      setSubmitStatus('error');
+                                    } finally {
+                                      setIsSubmitting(false);
+                                    }
+                                  }}
+                                >
+                                  <Input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                    className="bg-background"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                                    required
+                                  />
+                                  <Input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    className="bg-background"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                                    required
+                                  />
+                                  <Textarea
+                                    name="message"
+                                    placeholder="Your message..."
+                                    rows={4}
+                                    className="resize-none bg-background"
+                                    value={formData.message}
+                                    onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                                    required
+                                  />
+                                  {submitStatus === 'error' && (
+                                    <p className="text-sm text-red-600 dark:text-red-400">
+                                      Failed to send. Please try again.
+                                    </p>
+                                  )}
+                                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                                    {isSubmitting
+                                      ? (
+                                          <LoaderIcon className="mr-2 size-4 animate-spin" />
+                                        )
+                                      : (
+                                          <SendIcon className="mr-2 size-4" />
+                                        )}
+                                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                                  </Button>
+                                </form>
+                              )}
                         </CardContent>
                       </Card>
                     </div>
