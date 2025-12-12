@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
   {
     type: 'project',
     title: 'Snippet Share',
-    description: 'A secure and easy way to share code snippets with others. Create self-destructing, password-protected snippets with end-to-end encryption.',
+    description: 'Privacy-first code sharing where encryption happens in your browser. End-to-end encrypted snippets with password protection and self-destruct timers.',
     url: 'https://snippet-share.com',
     image: 'https://snippet-share.com/og-image.png',
     tech: ['React', 'TypeScript', 'Cloudflare Workers', 'Hono', 'PostgreSQL', 'Tailwind CSS', 'End-to-End Encryption', 'Monorepo', 'Supabase', 'Zod'],
