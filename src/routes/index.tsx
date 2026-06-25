@@ -17,33 +17,18 @@ import { HighlightCard } from '@/components/highlight-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAvatarPixelTransition } from '@/hooks/use-avatar-pixel-transition';
-import {
-  EXPERIENCES,
-  getHighlights,
-  PROJECTS,
-  SECTIONS,
-  SKILL_CATEGORIES,
-  SOCIAL_LINKS,
-} from '@/lib/constants';
+import { EXPERIENCES, getHighlights, PROJECTS, SECTIONS, SKILL_CATEGORIES, SOCIAL_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
+
+/** Mobile tap target (44px) for icon buttons; reverts to the default 36px on md+. */
+const ICON_TOUCH_TARGET = 'size-11 md:size-9';
 
 /**
  * A full-viewport panel. Single source of truth for responsive section layout: on mobile it is
@@ -51,15 +36,7 @@ export const Route = createFileRoute('/')({
  * snap-scroll container declared on `<main>`. Always uses `dvh`, never `vh`, so mobile browser
  * chrome never hides content.
  */
-function Section({
-  id,
-  className,
-  children,
-}: {
-  id: string;
-  className?: string;
-  children: ReactNode;
-}) {
+function Section({ id, className, children }: { id: string; className?: string; children: ReactNode }) {
   return (
     <section
       id={id}
@@ -136,9 +113,7 @@ function HomePage() {
    * </Button>
    */
   const getExternalLinkProps = (href: string) =>
-    href.startsWith('mailto:')
-      ? {}
-      : { target: '_blank' as const, rel: 'noopener noreferrer' };
+    href.startsWith('mailto:') ? {} : { target: '_blank' as const, rel: 'noopener noreferrer' };
 
   return (
     <TooltipProvider>
@@ -152,15 +127,9 @@ function HomePage() {
                 size="icon"
                 onClick={() => setIsDark((prev) => !prev)}
                 aria-label="Toggle theme"
-                className="size-11 md:size-9"
+                className={ICON_TOUCH_TARGET}
               >
-                {isDark
-                  ? (
-                      <SunIcon className="size-5" />
-                    )
-                  : (
-                      <MoonIcon className="size-5" />
-                    )}
+                {isDark ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -178,7 +147,7 @@ function HomePage() {
                 size="icon"
                 onClick={() => scrollToSection('hero')}
                 aria-label="Back to top"
-                className="fixed bottom-6 left-6 z-50 size-11 animate-in fade-in slide-in-from-bottom-2 duration-300 md:size-9"
+                className={cn('fixed bottom-6 left-6 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300', ICON_TOUCH_TARGET)}
               >
                 <ArrowUpIcon className="size-4" />
               </Button>
@@ -271,18 +240,12 @@ function HomePage() {
           <h1 className="text-balance text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
             Abdirahman Haji
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
-            Software Engineer
-          </p>
+          <p className="mt-4 text-lg text-muted-foreground md:text-xl">Software Engineer</p>
 
           <div className="mt-8 flex gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-              <Button key={name} variant="ghost" size="icon" className="size-11 md:size-9" asChild>
-                <a
-                  href={href}
-                  aria-label={name}
-                  {...getExternalLinkProps(href)}
-                >
+              <Button key={name} variant="ghost" size="icon" className={ICON_TOUCH_TARGET} asChild>
+                <a href={href} aria-label={name} {...getExternalLinkProps(href)}>
                   <Icon className="size-5" />
                 </a>
               </Button>
@@ -293,14 +256,7 @@ function HomePage() {
           <div className="mt-10 w-full max-w-4xl">
             <div className="grid gap-4 sm:grid-cols-2">
               {highlights.map((highlight, index) => (
-                <div
-                  key={highlight.title}
-                  className={
-                    index === 0 && highlights.length === 3
-                      ? 'sm:col-span-2'
-                      : ''
-                  }
-                >
+                <div key={highlight.title} className={index === 0 && highlights.length === 3 ? 'sm:col-span-2' : ''}>
                   <HighlightCard highlight={highlight} />
                 </div>
               ))}
@@ -352,14 +308,8 @@ function HomePage() {
                       rel="noopener noreferrer"
                       className="transition-transform hover:scale-105"
                     >
-                      <Badge
-                        variant="secondary"
-                        className="gap-1.5 px-2 py-1 text-xs"
-                      >
-                        <skill.icon
-                          className="size-3"
-                          style={{ color: skill.color }}
-                        />
+                      <Badge variant="secondary" className="gap-1.5 px-2 py-1 text-xs">
+                        <skill.icon className="size-3" style={{ color: skill.color }} />
                         {skill.name}
                       </Badge>
                     </a>
@@ -370,18 +320,11 @@ function HomePage() {
 
             <div className="mt-8 flex flex-col gap-6">
               {EXPERIENCES.map((exp) => (
-                <Card
-                  key={exp.company}
-                  className="border-border/50 bg-card/50 transition-colors hover:border-primary/50"
-                >
+                <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">
                   <CardHeader className="pb-2">
                     <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
-                      <CardTitle className="font-mono text-lg">
-                        {exp.role}
-                      </CardTitle>
-                      <span className="font-mono text-sm text-muted-foreground">
-                        {exp.period}
-                      </span>
+                      <CardTitle className="font-mono text-lg">{exp.role}</CardTitle>
+                      <span className="font-mono text-sm text-muted-foreground">{exp.period}</span>
                     </div>
                     <CardDescription>
                       <img
@@ -393,9 +336,7 @@ function HomePage() {
                   </CardHeader>
                   {exp.description && (
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        {exp.description}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{exp.description}</p>
                     </CardContent>
                   )}
                 </Card>
@@ -410,11 +351,7 @@ function HomePage() {
             <h2 className="font-mono text-2xl font-semibold">Projects</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {PROJECTS.map((project) => (
-                <HighlightCard
-                  key={project.title}
-                  highlight={project}
-                  showImage
-                />
+                <HighlightCard key={project.title} highlight={project} showImage />
               ))}
             </div>
           </div>
@@ -430,12 +367,7 @@ function HomePage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
               {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-                <Button
-                  key={name}
-                  variant="outline"
-                  className="w-full sm:w-auto"
-                  asChild
-                >
+                <Button key={name} variant="outline" className="w-full sm:w-auto" asChild>
                   <a href={href} {...getExternalLinkProps(href)}>
                     <Icon className="mr-2 size-4" />
                     {name}
@@ -457,9 +389,7 @@ function HomePage() {
                       Send me a message
                     </Button>
                   )
-                : (
-                    <ContactForm onClose={() => setShowContactForm(false)} />
-                  )}
+                : <ContactForm onClose={() => setShowContactForm(false)} />}
             </div>
 
             <p className="mt-16 text-sm text-muted-foreground">
