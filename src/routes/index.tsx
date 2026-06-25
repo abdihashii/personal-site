@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -24,6 +26,29 @@ import { cn } from '@/lib/utils';
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
+
+/** Mobile tap target (44px) for icon buttons; reverts to the default 36px on md+. */
+const ICON_TOUCH_TARGET = 'size-11 md:size-9';
+
+/**
+ * A full-viewport panel. Single source of truth for responsive section layout: on mobile it is
+ * content-driven (`min-h-dvh`, never clips, scrolls naturally) and on `md+` it participates in the
+ * snap-scroll container declared on `<main>`. Always uses `dvh`, never `vh`, so mobile browser
+ * chrome never hides content.
+ */
+function Section({ id, className, children }: { id: string; className?: string; children: ReactNode }) {
+  return (
+    <section
+      id={id}
+      className={cn(
+        'relative flex min-h-dvh snap-start flex-col items-center justify-center px-6 py-20 md:py-16',
+        className,
+      )}
+    >
+      {children}
+    </section>
+  );
+}
 
 function HomePage() {
   const [isDark, setIsDark] = useState(true);
@@ -92,7 +117,7 @@ function HomePage() {
 
   return (
     <TooltipProvider>
-      <main className="h-screen snap-y snap-mandatory overflow-y-auto bg-background text-foreground">
+      <main className="min-h-dvh overflow-x-hidden bg-background text-foreground md:h-dvh md:snap-y md:snap-mandatory md:overflow-y-auto">
         {/* Theme Toggle */}
         <div className="fixed right-4 top-4 z-50 md:right-6 md:top-6">
           <Tooltip>
@@ -102,6 +127,7 @@ function HomePage() {
                 size="icon"
                 onClick={() => setIsDark((prev) => !prev)}
                 aria-label="Toggle theme"
+                className={ICON_TOUCH_TARGET}
               >
                 {isDark ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
               </Button>
@@ -121,7 +147,7 @@ function HomePage() {
                 size="icon"
                 onClick={() => scrollToSection('hero')}
                 aria-label="Back to top"
-                className="fixed bottom-6 left-6 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                className={cn('fixed bottom-6 left-6 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300', ICON_TOUCH_TARGET)}
               >
                 <ArrowUpIcon className="size-4" />
               </Button>
@@ -166,10 +192,7 @@ function HomePage() {
         </nav>
 
         {/* Hero */}
-        <section
-          id="hero"
-          className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
-        >
+        <Section id="hero">
           <div className="relative mb-6 size-24 md:size-32">
             <Avatar className="size-full">
               <AvatarImage
@@ -214,14 +237,14 @@ function HomePage() {
               )}
             </AnimatePresence>
           </div>
-          <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
+          <h1 className="text-balance text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
             Abdirahman Haji
           </h1>
           <p className="mt-4 text-lg text-muted-foreground md:text-xl">Software Engineer</p>
 
           <div className="mt-8 flex gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-              <Button key={name} variant="ghost" size="icon" asChild>
+              <Button key={name} variant="ghost" size="icon" className={ICON_TOUCH_TARGET} asChild>
                 <a href={href} aria-label={name} {...getExternalLinkProps(href)}>
                   <Icon className="size-5" />
                 </a>
@@ -245,7 +268,7 @@ function HomePage() {
               <button
                 type="button"
                 onClick={() => scrollToSection('experience')}
-                className="absolute bottom-8 animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100"
+                className="absolute bottom-8 hidden animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100 md:block"
                 aria-label="Scroll to next section"
               >
                 <ChevronDownIcon className="size-6" />
@@ -255,15 +278,12 @@ function HomePage() {
               <p>Scroll down</p>
             </TooltipContent>
           </Tooltip>
-        </section>
+        </Section>
 
         {/* Experience */}
-        <section
-          id="experience"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="experience">
           <div className="w-full max-w-4xl">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 className="font-mono text-2xl font-semibold">Experience</h2>
               <Button variant="outline" asChild>
                 <Link to="/resume">
@@ -323,13 +343,10 @@ function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Projects */}
-        <section
-          id="projects"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="projects">
           <div className="w-full max-w-4xl">
             <h2 className="font-mono text-2xl font-semibold">Projects</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -338,13 +355,10 @@ function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Contact */}
-        <section
-          id="contact"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="contact">
           <div className="text-center">
             <h2 className="font-mono text-2xl font-semibold">Get in Touch</h2>
             <p className="mt-4 text-balance text-muted-foreground">
@@ -386,7 +400,7 @@ function HomePage() {
               Abdirahman Haji
             </p>
           </div>
-        </section>
+        </Section>
       </main>
     </TooltipProvider>
   );

@@ -70,11 +70,11 @@ export function HighlightCard({ highlight, showImage = false }: HighlightCardPro
         <CardContent className="flex flex-col gap-3">
           <p className="h-[3lh] line-clamp-3 text-sm text-muted-foreground">{highlight.description}</p>
           <div className="relative">
-            {/* Left fade */}
-            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-4 bg-linear-to-r from-card/80 to-transparent" />
-            {/* Right fade */}
-            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-4 bg-linear-to-l from-card/80 to-transparent" />
-            <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+            {/* Edge fades hint at the horizontal scroll on md+ (where the row does not wrap) */}
+            <div className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full w-4 bg-linear-to-r from-card/80 to-transparent md:block" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 hidden h-full w-4 bg-linear-to-l from-card/80 to-transparent md:block" />
+            {/* Wrap on mobile (cards stay within the viewport); single scrollable row on md+ */}
+            <div className="flex flex-wrap gap-1.5 md:flex-nowrap md:overflow-x-auto md:scrollbar-hide">
               {/* Type badge for non-projects */}
               {typeBadge && (
                 <Badge variant="outline" className="gap-1 text-xs">
