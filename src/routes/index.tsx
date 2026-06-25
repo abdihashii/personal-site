@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -15,15 +17,61 @@ import { HighlightCard } from '@/components/highlight-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useAvatarPixelTransition } from '@/hooks/use-avatar-pixel-transition';
-import { EXPERIENCES, getHighlights, PROJECTS, SECTIONS, SKILL_CATEGORIES, SOCIAL_LINKS } from '@/lib/constants';
+import {
+  EXPERIENCES,
+  getHighlights,
+  PROJECTS,
+  SECTIONS,
+  SKILL_CATEGORIES,
+  SOCIAL_LINKS,
+} from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
+
+/**
+ * A full-viewport panel. Single source of truth for responsive section layout: on mobile it is
+ * content-driven (`min-h-dvh`, never clips, scrolls naturally) and on `md+` it participates in the
+ * snap-scroll container declared on `<main>`. Always uses `dvh`, never `vh`, so mobile browser
+ * chrome never hides content.
+ */
+function Section({
+  id,
+  className,
+  children,
+}: {
+  id: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      className={cn(
+        'relative flex min-h-dvh snap-start flex-col items-center justify-center px-6 py-20 md:py-16',
+        className,
+      )}
+    >
+      {children}
+    </section>
+  );
+}
 
 function HomePage() {
   const [isDark, setIsDark] = useState(true);
@@ -88,11 +136,13 @@ function HomePage() {
    * </Button>
    */
   const getExternalLinkProps = (href: string) =>
-    href.startsWith('mailto:') ? {} : { target: '_blank' as const, rel: 'noopener noreferrer' };
+    href.startsWith('mailto:')
+      ? {}
+      : { target: '_blank' as const, rel: 'noopener noreferrer' };
 
   return (
     <TooltipProvider>
-      <main className="h-screen snap-y snap-mandatory overflow-y-auto bg-background text-foreground">
+      <main className="min-h-dvh overflow-x-hidden bg-background text-foreground md:h-dvh md:snap-y md:snap-mandatory md:overflow-y-auto">
         {/* Theme Toggle */}
         <div className="fixed right-4 top-4 z-50 md:right-6 md:top-6">
           <Tooltip>
@@ -103,7 +153,13 @@ function HomePage() {
                 onClick={() => setIsDark((prev) => !prev)}
                 aria-label="Toggle theme"
               >
-                {isDark ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
+                {isDark
+                  ? (
+                      <SunIcon className="size-5" />
+                    )
+                  : (
+                      <MoonIcon className="size-5" />
+                    )}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -166,10 +222,7 @@ function HomePage() {
         </nav>
 
         {/* Hero */}
-        <section
-          id="hero"
-          className="relative flex h-screen snap-start flex-col items-center justify-center px-6"
-        >
+        <Section id="hero">
           <div className="relative mb-6 size-24 md:size-32">
             <Avatar className="size-full">
               <AvatarImage
@@ -217,12 +270,18 @@ function HomePage() {
           <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
             Abdirahman Haji
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground md:text-xl">Software Engineer</p>
+          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
+            Software Engineer
+          </p>
 
           <div className="mt-8 flex gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
               <Button key={name} variant="ghost" size="icon" asChild>
-                <a href={href} aria-label={name} {...getExternalLinkProps(href)}>
+                <a
+                  href={href}
+                  aria-label={name}
+                  {...getExternalLinkProps(href)}
+                >
                   <Icon className="size-5" />
                 </a>
               </Button>
@@ -233,7 +292,14 @@ function HomePage() {
           <div className="mt-10 w-full max-w-4xl">
             <div className="grid gap-4 sm:grid-cols-2">
               {highlights.map((highlight, index) => (
-                <div key={highlight.title} className={index === 0 && highlights.length === 3 ? 'sm:col-span-2' : ''}>
+                <div
+                  key={highlight.title}
+                  className={
+                    index === 0 && highlights.length === 3
+                      ? 'sm:col-span-2'
+                      : ''
+                  }
+                >
                   <HighlightCard highlight={highlight} />
                 </div>
               ))}
@@ -255,13 +321,10 @@ function HomePage() {
               <p>Scroll down</p>
             </TooltipContent>
           </Tooltip>
-        </section>
+        </Section>
 
         {/* Experience */}
-        <section
-          id="experience"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="experience">
           <div className="w-full max-w-4xl">
             <div className="flex items-center justify-between">
               <h2 className="font-mono text-2xl font-semibold">Experience</h2>
@@ -288,8 +351,14 @@ function HomePage() {
                       rel="noopener noreferrer"
                       className="transition-transform hover:scale-105"
                     >
-                      <Badge variant="secondary" className="gap-1.5 px-2 py-1 text-xs">
-                        <skill.icon className="size-3" style={{ color: skill.color }} />
+                      <Badge
+                        variant="secondary"
+                        className="gap-1.5 px-2 py-1 text-xs"
+                      >
+                        <skill.icon
+                          className="size-3"
+                          style={{ color: skill.color }}
+                        />
                         {skill.name}
                       </Badge>
                     </a>
@@ -300,11 +369,18 @@ function HomePage() {
 
             <div className="mt-8 flex flex-col gap-6">
               {EXPERIENCES.map((exp) => (
-                <Card key={exp.company} className="border-border/50 bg-card/50 transition-colors hover:border-primary/50">
+                <Card
+                  key={exp.company}
+                  className="border-border/50 bg-card/50 transition-colors hover:border-primary/50"
+                >
                   <CardHeader className="pb-2">
                     <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
-                      <CardTitle className="font-mono text-lg">{exp.role}</CardTitle>
-                      <span className="font-mono text-sm text-muted-foreground">{exp.period}</span>
+                      <CardTitle className="font-mono text-lg">
+                        {exp.role}
+                      </CardTitle>
+                      <span className="font-mono text-sm text-muted-foreground">
+                        {exp.period}
+                      </span>
                     </div>
                     <CardDescription>
                       <img
@@ -316,35 +392,35 @@ function HomePage() {
                   </CardHeader>
                   {exp.description && (
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{exp.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {exp.description}
+                      </p>
                     </CardContent>
                   )}
                 </Card>
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Projects */}
-        <section
-          id="projects"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="projects">
           <div className="w-full max-w-4xl">
             <h2 className="font-mono text-2xl font-semibold">Projects</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {PROJECTS.map((project) => (
-                <HighlightCard key={project.title} highlight={project} showImage />
+                <HighlightCard
+                  key={project.title}
+                  highlight={project}
+                  showImage
+                />
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
         {/* Contact */}
-        <section
-          id="contact"
-          className="flex min-h-screen snap-start flex-col items-center justify-center px-6 py-16"
-        >
+        <Section id="contact">
           <div className="text-center">
             <h2 className="font-mono text-2xl font-semibold">Get in Touch</h2>
             <p className="mt-4 text-balance text-muted-foreground">
@@ -353,7 +429,12 @@ function HomePage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
               {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-                <Button key={name} variant="outline" className="w-full sm:w-auto" asChild>
+                <Button
+                  key={name}
+                  variant="outline"
+                  className="w-full sm:w-auto"
+                  asChild
+                >
                   <a href={href} {...getExternalLinkProps(href)}>
                     <Icon className="mr-2 size-4" />
                     {name}
@@ -375,7 +456,9 @@ function HomePage() {
                       Send me a message
                     </Button>
                   )
-                : <ContactForm onClose={() => setShowContactForm(false)} />}
+                : (
+                    <ContactForm onClose={() => setShowContactForm(false)} />
+                  )}
             </div>
 
             <p className="mt-16 text-sm text-muted-foreground">
@@ -386,7 +469,7 @@ function HomePage() {
               Abdirahman Haji
             </p>
           </div>
-        </section>
+        </Section>
       </main>
     </TooltipProvider>
   );
