@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowLeftIcon, DownloadIcon } from 'lucide-react';
+import { ArrowLeftIcon, DownloadIcon, ExternalLinkIcon, FileTextIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -9,16 +9,17 @@ export const Route = createFileRoute('/resume')({
 
 function ResumePage() {
   return (
-    <main className="flex h-screen flex-col bg-background text-foreground">
+    <main className="relative flex h-dvh flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="flex items-center justify-between border-b border-border px-6 py-4">
+      <header className="relative z-10 flex items-center justify-between border-b border-border px-6 py-4">
         <Button variant="ghost" asChild>
           <Link to="/">
             <ArrowLeftIcon className="mr-2 size-4" />
             Back
           </Link>
         </Button>
-        <Button variant="default" asChild>
+        {/* Desktop only: on mobile the body card owns the actions */}
+        <Button variant="default" className="hidden md:flex" asChild>
           <a href="/resume.pdf" download>
             <DownloadIcon className="mr-2 size-4" />
             Download
@@ -26,22 +27,48 @@ function ResumePage() {
         </Button>
       </header>
 
-      {/* PDF Viewer */}
-      <div className="flex-1">
-        <object
-          data="/resume.pdf"
-          type="application/pdf"
-          className="size-full"
-          aria-label="Resume"
-        >
-          <p className="p-8 text-center">
-            Unable to display PDF.
-            {' '}
-            <a href="/resume.pdf" download className="text-primary underline">
-              Download it instead
-            </a>
+      {/* PDF viewer (desktop). <object> renders blank on most mobile browsers. */}
+      <object
+        data="/resume.pdf"
+        type="application/pdf"
+        className="hidden flex-1 md:block"
+        aria-label="Resume"
+      >
+        <p className="p-8 text-center">
+          Unable to display PDF.
+          {' '}
+          <a href="/resume.pdf" download className="text-primary underline">
+            Download it instead
+          </a>
+        </p>
+      </object>
+
+      {/* Mobile fallback. Embedded PDFs don't render on mobile, so open in a new tab or download.
+          Absolutely centered against the full viewport so the header bar doesn't bias it downward. */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center md:hidden">
+        <div className="flex size-16 items-center justify-center rounded-2xl bg-card text-muted-foreground">
+          <FileTextIcon className="size-8" />
+        </div>
+        <div className="space-y-1">
+          <p className="font-mono text-lg font-semibold">Resume</p>
+          <p className="text-sm text-muted-foreground">
+            Open the PDF in a new tab or download a copy.
           </p>
-        </object>
+        </div>
+        <div className="flex w-full max-w-xs flex-col gap-3">
+          <Button asChild>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <ExternalLinkIcon className="mr-2 size-4" />
+              Open PDF
+            </a>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="/resume.pdf" download>
+              <DownloadIcon className="mr-2 size-4" />
+              Download
+            </a>
+          </Button>
+        </div>
       </div>
     </main>
   );
