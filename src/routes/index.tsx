@@ -152,6 +152,7 @@ function HomePage() {
                 size="icon"
                 onClick={() => setIsDark((prev) => !prev)}
                 aria-label="Toggle theme"
+                className="size-11 md:size-9"
               >
                 {isDark
                   ? (
@@ -177,7 +178,7 @@ function HomePage() {
                 size="icon"
                 onClick={() => scrollToSection('hero')}
                 aria-label="Back to top"
-                className="fixed bottom-6 left-6 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                className="fixed bottom-6 left-6 z-50 size-11 animate-in fade-in slide-in-from-bottom-2 duration-300 md:size-9"
               >
                 <ArrowUpIcon className="size-4" />
               </Button>
@@ -276,7 +277,7 @@ function HomePage() {
 
           <div className="mt-8 flex gap-4">
             {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-              <Button key={name} variant="ghost" size="icon" asChild>
+              <Button key={name} variant="ghost" size="icon" className="size-11 md:size-9" asChild>
                 <a
                   href={href}
                   aria-label={name}
@@ -326,7 +327,7 @@ function HomePage() {
         {/* Experience */}
         <Section id="experience">
           <div className="w-full max-w-4xl">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 className="font-mono text-2xl font-semibold">Experience</h2>
               <Button variant="outline" asChild>
                 <Link to="/resume">
