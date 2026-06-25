@@ -267,7 +267,7 @@ function HomePage() {
               )}
             </AnimatePresence>
           </div>
-          <h1 className="text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
+          <h1 className="text-balance text-center font-mono text-3xl font-bold tracking-tight md:text-4xl lg:text-6xl">
             Abdirahman Haji
           </h1>
           <p className="mt-4 text-lg text-muted-foreground md:text-xl">
@@ -311,7 +311,7 @@ function HomePage() {
               <button
                 type="button"
                 onClick={() => scrollToSection('experience')}
-                className="absolute bottom-8 animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100"
+                className="absolute bottom-8 hidden animate-bounce cursor-pointer opacity-60 transition-opacity hover:opacity-100 md:block"
                 aria-label="Scroll to next section"
               >
                 <ChevronDownIcon className="size-6" />
